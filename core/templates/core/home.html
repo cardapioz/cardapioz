@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}{% load staticfiles %}
+
+{% block content %}
+
+    <div id="modal1" class="modal modal-express">
+
+        <nav class="red darken-3" >
+            <div class="container">
+
+                <div class="nav-wrapper">
+                    <a href="#" class="modal-close button-express show-on-large"><i class="material-icons">arrow_back</i></a>
+
+                    <a href="#" class="brand-logo">Produto</a>
+
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="#" class="text-darken-3">Sass</a></li>
+                        <li><a href="#" class="text-darken-3">Sass</a></li>
+                        <li><a href="#" class="text-darken-3">Sass</a></li>
+                        <li><a href="#" class="text-darken-3">Login</a></li>
+                        <li></li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <img width="100%" height="auto" src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
+        <div class="container">
+            <div class="modal-content">
+                <h5>Modal Header</h5>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="container">
+            {% for i in 'xxxxxddd'%}<div class="container-full red darken-3" style="height: 300px; margin-top: 10px;"></div>{% endfor %}
+
+            {% for foo in posts %}
+                <div class="col s10 m4 center">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
+                            <span class="card-title">{{ foo.author }} {{ foo.titulo }}</span>
+                        </div>
+                        <div class="card-action">
+                            <a href="#"><i class="material-icons left">favorite_border</i></a>
+                            <a href="#"><i class="material-icons left">add</i></a>
+                            <a href="#modal1" >pedir</a>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

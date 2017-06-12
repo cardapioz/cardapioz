@@ -1,0 +1,68 @@
+{% extends 'core/base.html' %}{% load staticfiles %}
+
+{% block content %}
+    <div class="container" style="height: auto; min-height: 100vh;">
+        <div class="row">
+
+            <div class="col s12 m7 l7">
+                <ul class="collection">
+                    <li class="collection-item dismissable"><div>Pedidos em andamento<a href="#!" class="secondary-content"><i class="material-icons">done</i></a></div></li>
+                </ul>
+                <ul class="collapsible" data-collapsible="accordion">
+                    {% for form in 'aaaaaaaaa' %}
+                        <li>
+                            <div class="collapsible-header"><span class="new badge grey" data-badge-caption="nao visualizado"></span><i class="material-icons">restaurant_menu</i>Hamburguer</div>
+                            <div class="collapsible-body">
+                                <div class="row">
+                                    <ul class="collection">
+                                        <li class="collection-item avatar">
+                                            <img src="{% static 'core/img/comida-org-7-hamburguer-770.jpg' %}" alt="" class="circle">
+                                            <span class="title">Title</span>
+                                            <p>First Line <br>
+                                                Second Line
+                                            </p>
+                                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                                        </li>
+                                    </ul>
+                                        <div class="col s4 grey">
+                                            Pedido em espera
+                                        </div>
+                                        <div class="col s4 grey lighten-3">
+                                            Pedido em andamento
+                                        </div>
+                                        <div class="col s4 z-depth-4 white">
+                                            <div class="Aligner" style="width: 100%;">
+                                                <i class="material-icons" style="font-size: 30pt;">motorcycle</i>
+                                            </div>
+                                            Saiu para entrega! :3
+                                        </div>
+
+                                </div></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col s12 m5 l5">
+                <ul class="collection">
+                    <li class="collection-item dismissable"><div>Pedidos recentes<a href="#!" class="secondary-content"><i class="material-icons">done_all</i></a></div></li>
+                </ul>
+                <ul class="collapsible" data-collapsible="accordion">
+                    {% for form in 'aaaaaaaaa' %}
+                        <li>
+                            <div class="collapsible-header"><span class="new badge green" data-badge-caption="entregue"></span><i class="material-icons">restaurant_menu</i>Pizza</div>
+                            <div class="collapsible-body"><div class="row">
+
+                                <div class="col s12">
+                                    Avalie este pedido
+                                </div>
+
+                            </div></div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

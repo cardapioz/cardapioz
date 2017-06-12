@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="container" style="height: 100vh;">
+        <div class="container Aligner" style="height: 100vh;">
+
+            <div class="row z-depth-2 white" >
+                <div class="s12 Aligner">
+                    <div class="section">
+                        <h5>faça login com: </h5>
+
+                        <a  href="/accounts/facebook/login/?process=login" class="btn indigo waves-effect waves-light darken-1 btn-radius">facebook</a>
+                        <a  href="/accounts/facebook/login/?process=login" class="btn indigo waves-effect waves-light darken-1 btn-radius">facebook</a>
+                        <a  href="/accounts/facebook/login/?process=login" class="btn indigo waves-effect waves-light darken-1 btn-radius">facebook</a>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <form  method="post" action="{% url 'account_login' %}" class="col s12" style="text-align: center">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="email" type="email" class="validate">
+                            <label for="icon_prefix">E-mail</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">security</i>
+                            <input id="icon_telephone" type="password" class="validate">
+                            <label for="icon_telephone">Senha</label>
+                        </div>
+                        <button class="align-center btn waves-effect waves-light red darken-3" type="submit">entrar</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

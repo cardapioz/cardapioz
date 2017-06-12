@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.btn{
+    border-radius: 15px;
+}
+
+.input-field input[type=search]:focus{
+    background-color: red !important;
+}
+
+.modal{
+    will-change: none !important;
+    top: 0;
+}

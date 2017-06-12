@@ -1,0 +1,81 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>Cardapioz </title>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/materialize.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/style.css' %}"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'core/js/jquery.js' %}"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+{% csrf_token %}
+<body class="grey lighten-5">
+<nav class="white" >
+    <div class="container">
+        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons  red-text text-darken-3">menu</i></a>
+
+        <div class="nav-wrapper">
+
+            <a href="#" class=" red-text text-darken-3 brand-logo">Cardapioz</a>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="#" class=" red-text text-darken-3">Notificaçoes</a></li>
+                <li><a href="#" class=" red-text text-darken-3">Meus pedidos</a></li>
+               {% if not user.is_authenticated %} <li><a href="{% url 'user-login' %}" class=" red-text text-darken-3">Login</a></li> {% endif %}
+            </ul>
+        </div>
+    </div>
+    <ul id="slide-out" class="side-nav">
+        <li><div class="userView">
+            <div class="background">
+                <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
+            </div>
+            <a href="#!user"><img class="circle" src="{% static 'core/img/pexels-photo-199263.jpeg' %}"></a>
+            <a href="#!name"><span class="white-text name">{{ user.username }}</span></a>
+            <a href="#!email"><span class="white-text email">{{ user.email }}</span></a>
+        </div></li>
+        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+        <li><a href="#!">Second Link</a></li>
+        <li><div class="divider"></div></li>
+        <li><a class="subheader">Subheader</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
+        <li><a onclick="logout()" class="waves-effect" href="#">Sair</a></li>
+    </ul>
+</nav>
+{% block content %}{% endblock %}
+<footer class="page-footer grey darken-3">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">Cardapioz Pedidos Online</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Sobre</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Trabalhe conosco</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Termos</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Como funciona</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 Copyright Giraffe
+            <a class="grey-text text-lighten-4 right" href="#!">Blog Cardapioz</a>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="{% static 'core/materialize/js/materialize.js' %}"></script>
+<script type="text/javascript" src="{% static 'core/js/jquery.js' %}"></script>
+
+</body>
+</html>

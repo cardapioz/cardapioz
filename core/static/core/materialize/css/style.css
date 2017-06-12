@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.btn-radius {
+    border-radius: 100px;
+}
+
+.Aligner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center;
+}
+
+.forms{
+    position: relative !important;
+    margin: 30px; !important;
+    height: 500px !important;
+}
+.auto-margin{
+    position: relative;
+    margin: auto;
+
+}
