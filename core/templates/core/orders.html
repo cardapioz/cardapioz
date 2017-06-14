@@ -3,10 +3,9 @@
 {% block content %}
     <div class="container" style="height: auto; min-height: 100vh;">
         <div class="row">
-
             <div class="col s12 m7 l7">
                 <ul class="collection">
-                    <li class="collection-item dismissable"><div>Pedidos em andamento<a href="#!" class="secondary-content"><i class="material-icons">done</i></a></div></li>
+                    <li class="collection-item"><div>Pedidos em andamento<a href="#!" class="secondary-content"><i class="material-icons">done</i></a></div></li>
                 </ul>
                 <ul class="collapsible" data-collapsible="accordion">
                     {% for form in 'aaaaaaaaa' %}
@@ -24,20 +23,28 @@
                                             <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                                         </li>
                                     </ul>
-                                        <div class="col s4 grey">
-                                            Pedido em espera
+                                    <div class="col s4 grey">
+                                        <div class="Aligner" style="height: 200px;">
+                                            <i class="material-icons" style="font-size: 30pt;">access_time</i>
                                         </div>
-                                        <div class="col s4 grey lighten-3">
-                                            Pedido em andamento
+                                        <p> Em espera</p>
+                                    </div>
+                                    <div class="col s4 grey lighten-3">
+                                        <div class="Aligner" style="height: 200px;">
+                                            <i class="material-icons" style="font-size: 30pt;">local_pizza</i>
                                         </div>
-                                        <div class="col s4 z-depth-4 white">
-                                            <div class="Aligner" style="width: 100%;">
-                                                <i class="material-icons" style="font-size: 30pt;">motorcycle</i>
-                                            </div>
-                                            Saiu para entrega! :3
+                                        <p>Em andamento</p>
+                                    </div>
+                                    <div class="col s4 z-depth-4 white">
+                                        <div class="Aligner" style="height: 200px; width: 100%;">
+                                            <i class="material-icons" style="font-size: 30pt;">motorcycle</i>
                                         </div>
+                                        <p> Saiu para entrega! :3</p>
+                                    </div>
 
-                                </div></div>
+                                </div>
+
+                            </div>
                         </li>
                     {% endfor %}
                 </ul>
@@ -45,7 +52,7 @@
 
             <div class="col s12 m5 l5">
                 <ul class="collection">
-                    <li class="collection-item dismissable"><div>Pedidos recentes<a href="#!" class="secondary-content"><i class="material-icons">done_all</i></a></div></li>
+                    <li class="collection-item"><div>Pedidos recentes<a href="#!" class="secondary-content"><i class="material-icons">done_all</i></a></div></li>
                 </ul>
                 <ul class="collapsible" data-collapsible="accordion">
                     {% for form in 'aaaaaaaaa' %}

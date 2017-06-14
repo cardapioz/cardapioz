@@ -1,10 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<!-- modal -->{% load staticfiles %}
+<div id="modal1" class="modal modal-express">
+    <nav class="red darken-3" >
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="#" class="modal-close button-express show-on-large"><i class="material-icons">arrow_back</i></a>
+                <a href="#" class="brand-logo ">Produto</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#" class="text-darken-3">Sass</a></li>
+                    <li><a href="#" class="text-darken-3">Sass</a></li>
+                    <li><a href="#" class="text-darken-3">Sass</a></li>
+                    <li><a href="#" class="text-darken-3">Login</a></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <figure class="col s12 m6 l6">
+                <img width="100%" height="auto" src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
+            </figure>
+            <div class="col s12 m5 l5">
+                <ul class="white collection">
+                    <li class="collection-item avatar">
+                        <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}" alt="" class="circle">
+                        <span class="title">Estabelicmento</span>
+                        <p>Categoria<br>
+                            Avaliaçao
+                        </p>
+                        <span class="green-text text-darken-3 secondary-content">R$10,00</span>
+                    </li>
+                    <li class="collection-item">
+                            <span class="title">
+                                <div class="input-field">
+                                    <input placeholder="Quantidade" id="quantidade" value="1"  min="1" type="number" class="validate">
+                                    <label for="quantidade">Quantidade</label>
+                                </div>
+                            </span>
+                        <span class="green-text text-darken-3 secondary-content"><a class="btn red darken-3 waves-effect">pedir</a></span>
+                    </li>
+                    <li class="collection-item">
+                        <p>em estoque</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col s12 m6 l6">
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Ingredientes</div>
+
+                        <ul class="collection collapsible-body" style="padding: 0;">
+                            {% for foo in '11111' %}
+                                <li class="collection-item"><div>Sangue</div></li>
+                            {% endfor %}
+
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="col s12 m6 l6">
+                <h5 class="light">Comentários</h5>
+                <ul class="collection">
+                    {% for foo in 'aaaa' %}
+                        <li class="collection-item avatar">
+                            <img src="{% static 'core/img/pexels-photo-199263.jpeg'%}" alt="" class="circle">
+                            <span class="title">Tina Tunner</span>
+                            <p> Em design gráfico e editoração, Lorem ipsum é um texto utilizado para preencher o espaço de texto em publicações
+                                (jornais, revistas, e websites).
+                            </p>
+                            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->

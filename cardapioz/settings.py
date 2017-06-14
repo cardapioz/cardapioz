@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'rest_framework',
     'api',
+    'django_resized'
 ]
 
 SITE_ID = 1
@@ -120,6 +121,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
+DJANGORESIZED_DEFAULT_QUALITY = 75
+DJANGORESIZED_DEFAULT_KEEP_META = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -143,3 +147,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 ACCOUNT_EMAIL_VERIFICATION = False
 LOGIN_REDIRECT_URL = '/'
+
+MEDIA_ROOT = ''
+MEDIA_URL = ''

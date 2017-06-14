@@ -6,8 +6,7 @@
 
     <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/materialize.css' %}"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/style.css' %}"/>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="{% static 'core/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'core/js/jquery-3.2.1.min.js' %}"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
@@ -19,12 +18,12 @@
 
         <div class="nav-wrapper">
 
-            <a href="#" class=" red-text text-darken-3 brand-logo">Cardapioz</a>
+            <a href="{% url 'index' %}" class=" red-text text-darken-3 brand-logo">Cardapioz</a>
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#" class=" red-text text-darken-3">Notificaçoes</a></li>
-                <li><a href="#" class=" red-text text-darken-3">Meus pedidos</a></li>
-               {% if not user.is_authenticated %} <li><a href="{% url 'user-login' %}" class=" red-text text-darken-3">Login</a></li> {% endif %}
+                <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">notifications</i></a></li>
+                <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
+               {% if not user.is_authenticated %} <li><a href="{% url 'user-login' %}" class=" red-text text-darken-3"></a></li> {% endif %}
             </ul>
         </div>
     </div>

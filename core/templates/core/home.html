@@ -1,62 +1,34 @@
 {% extends 'core/base.html' %}{% load staticfiles %}
 
 {% block content %}
-
-    <div id="modal1" class="modal modal-express">
-
-        <nav class="red darken-3" >
-            <div class="container">
-
-                <div class="nav-wrapper">
-                    <a href="#" class="modal-close button-express show-on-large"><i class="material-icons">arrow_back</i></a>
-
-                    <a href="#" class="brand-logo">Produto</a>
-
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="#" class="text-darken-3">Sass</a></li>
-                        <li><a href="#" class="text-darken-3">Sass</a></li>
-                        <li><a href="#" class="text-darken-3">Sass</a></li>
-                        <li><a href="#" class="text-darken-3">Login</a></li>
-                        <li></li>
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <img width="100%" height="auto" src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
-        <div class="container">
-            <div class="modal-content">
-                <h5>Modal Header</h5>
-
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-            </div>
-        </div>
-    </div>
+   {% include 'core/modal.html' %}
 
     <div class="row">
-        <div class="container">
-            {% for i in 'xxxxxddd'%}<div class="container-full red darken-3" style="height: 300px; margin-top: 10px;"></div>{% endfor %}
 
-            {% for foo in posts %}
-                <div class="col s10 m4 center">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
-                            <span class="card-title">{{ foo.author }} {{ foo.titulo }}</span>
-                        </div>
-                        <div class="card-action">
-                            <a href="#"><i class="material-icons left">favorite_border</i></a>
-                            <a href="#"><i class="material-icons left">add</i></a>
-                            <a href="#modal1" >pedir</a>
+        <div class="container">
+            {% for i in 'x'%}<div class="container-full red darken-3" style="height: 300px; margin-top: 10px;"></div>{% endfor %}
+
+            <h5 class="light link">Categoria </h5>
+            <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
+
+                {% for post in 'aaaaaaaaaaaaaaaaaaaaaaaa' %}
+                    <div class="col m5 l4 s11 center ">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
+                                <span class="card-title truncate">Pizza aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa{{ foo.author }} {{ foo.titulo }}</span>
+                                <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
+
+                            </div>
+                            <div class="card-action">
+                                <a href="#modal1" class="red-text text-darken-3" >pedido rapido</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
-
+    <link rel="stylesheet" href="{% static 'core/materialize/css/flickity.css' %}">
+    <script src="{% static 'core/materialize/js/flickity.pkgd.min.js' %}"></script>
 {% endblock %}

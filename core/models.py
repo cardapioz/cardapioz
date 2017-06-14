@@ -85,3 +85,13 @@ class UserBusiness(User):
         pass
 
     cnpj = models.CharField(default='', max_length=21)
+
+
+from django_resized import ResizedImageField
+
+
+class MyModel(models.Model):
+    image1 = ResizedImageField(size=[600, 600], upload_to='whatever')
+    #image2 = ResizedImageField(size=[100, 100], crop=['top', 'left'], upload_to='whatever')
+    #image3 = ResizedImageField(size=[100, 100], crop=['middle', 'center'], upload_to='whatever')
+    #image4 = ResizedImageField(size=[500, 300], quality=75, upload_to='whatever')
