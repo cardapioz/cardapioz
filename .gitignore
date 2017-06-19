@@ -2,3 +2,6 @@
 /media_cdn/
 /media_cdn/*
 *.pyc
+/staticfiles/*
+/whatever/*
+
