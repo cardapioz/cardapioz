@@ -1,14 +1,49 @@
 @charset "UTF-8";
 
-.btn{
-    border-radius: 15px;
+.btn-radius {
+    border-radius: 100px;
 }
 
-.input-field input[type=search]:focus{
-    background-color: red !important;
+.Aligner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center;
 }
 
-.modal{
-    will-change: none !important;
-    top: 0;
+.forms{
+    position: relative !important;
+    margin: 30px; !important;
+    height: 500px !important;
+}
+.auto-margin{
+    position: relative;
+    margin: auto;
+}
+
+
+/* external css: flickity.css */
+
+* { box-sizing: border-box; }
+
+
+.carousel {
+    height: 200px;
+    padding-top: 0px !important;
+}
+
+.carousel-cell {
+  width: auto;
+  height: auto;
+  margin-right: 10px;
+  border-radius: 5px;
+  counter-increment: carousel-cell;
+}
+.flickity-prev-next-button{
+    opacity: .3;
+    background: hsla(0, 0%, 100%, 0.5);
+}
+
+.container{
+    max-width: 1218px !important;
 }

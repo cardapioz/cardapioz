@@ -24,31 +24,55 @@
                 <ul class="white collection">
                     <li class="collection-item avatar">
                         <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}" alt="" class="circle">
-                        <span class="title">Estabelicmento</span>
+                        <span class="title">Estabelicmento <span style="top: -2px; width: 20px; height: 20px;" class="btn-floating pulse green accent-4"></span></span>
                         <p>Categoria<br>
-                            Avaliaçao
+                            em estoque <br>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star</i>
+                            <i class="material-icons yellow-text">star_border</i>
+                            <i class="material-icons yellow-text">star_border</i>
+
                         </p>
                         <span class="green-text text-darken-3 secondary-content">R$10,00</span>
                     </li>
                     <li class="collection-item">
-                            <span class="title">
-                                <div class="input-field">
-                                    <input placeholder="Quantidade" id="quantidade" value="1"  min="1" type="number" class="validate">
-                                    <label for="quantidade">Quantidade</label>
-                                </div>
-                            </span>
-                        <span class="green-text text-darken-3 secondary-content"><a class="btn red darken-3 waves-effect">pedir</a></span>
+
+                        <p>
+                            <div class="input-field">
+                                <input placeholder="Quantidade" id="quantidade" value="1"  min="1" type="number" class="validate">
+                                <label for="quantidade">Quantidade</label>
+                            </div>
+                        </p>
+                        <p>
+                        <div class="input-field">
+                            <select>
+                                <option value="" disabled selected>Endereço de entrega</option>
+                                <option value="1">Prudente moraes 3</option>
+                                <option value="2">Professor sinval silva</option>
+                                <option value="3">Israel Pinheiro</option>
+                            </select>
+                            <label>Escolha um endereço de entrega</label>
+                        </div></p>
+                        <p>
+                        <p>Forma de pagamento</p>
+                        <input name="group1" type="radio" id="test1" />
+                        <label for="test1">Em dinheiro</label>
+                        <input name="group1" type="radio" id="test2" />
+                        <label for="test2">No cartão</label>
+                        </p>
                     </li>
                     <li class="collection-item">
-                        <p>em estoque</p>
+                        <p>
+                            <a class="btn red darken-3 waves-effect">pedir</a>
+                        </p>
                     </li>
                 </ul>
             </div>
-
-            <div class="col s12 m6 l6">
+            <div class="col s12 m12 l12">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Ingredientes</div>
+                        <div class="collapsible-header"><i class="material-icons">keyboard_arrow_down</i>Ingredientes</div>
 
                         <ul class="collection collapsible-body" style="padding: 0;">
                             {% for foo in '11111' %}
@@ -60,7 +84,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s12 m6 l6">
+            <div class="col s12 m12 l12">
                 <h5 class="light">Comentários</h5>
                 <ul class="collection">
                     {% for foo in 'aaaa' %}

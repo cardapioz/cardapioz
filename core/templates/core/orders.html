@@ -1,4 +1,4 @@
-{% extends 'core/base.html' %}{% load staticfiles %}
+{% extends 'core/base.html' %}{% load staticfiles %}{% load cardapioz_extras %}
 
 {% block content %}
     <div class="container" style="height: auto; min-height: 100vh;">
@@ -8,38 +8,41 @@
                     <li class="collection-item"><div>Pedidos em andamento<a href="#!" class="secondary-content"><i class="material-icons">done</i></a></div></li>
                 </ul>
                 <ul class="collapsible" data-collapsible="accordion">
-                    {% for form in 'aaaaaaaaa' %}
+                    {% for order in orders  %}
                         <li>
-                            <div class="collapsible-header"><span class="new badge grey" data-badge-caption="nao visualizado"></span><i class="material-icons">restaurant_menu</i>Hamburguer</div>
+                            <div class="collapsible-header">
+                                <span class="new badge {{ order.status|color }}" data-badge-caption="{{ order.get_status }}"></span>
+                                <i class="material-icons">keyboard_arrow_down</i>{{ order.product.title }}</div>
                             <div class="collapsible-body">
                                 <div class="row">
                                     <ul class="collection">
                                         <li class="collection-item avatar">
-                                            <img src="{% static 'core/img/comida-org-7-hamburguer-770.jpg' %}" alt="" class="circle">
-                                            <span class="title">Title</span>
-                                            <p>First Line <br>
+                                            <img src="{{ order.product.photo_thumb.url }}" alt="" class="circle">
+                                            <span class="title">{{ order.product.title }}</span>
+                                            <p>{{ order.product.author.first_name }}<br>
                                                 Second Line
                                             </p>
                                             <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
                                         </li>
                                     </ul>
-                                    <div class="col s4 grey">
+                                    <div class="divider"></div>
+                                    <div class="col s4 {% if order.status < 2 %}z-depth-4 white{% else %}grey lighten-3{% endif %}">
                                         <div class="Aligner" style="height: 200px;">
-                                            <i class="material-icons" style="font-size: 30pt;">access_time</i>
+                                            <i class="material-icons red-text text-darken-3" style="font-size: 30pt;">access_time</i>
                                         </div>
-                                        <p> Em espera</p>
+                                        <p class="center-align" > Em espera</p>
                                     </div>
-                                    <div class="col s4 grey lighten-3">
+                                    <div class="col s4 {% if order.status == 2 %}z-depth-4 white{% else %}grey lighten-3{% endif %}">
                                         <div class="Aligner" style="height: 200px;">
-                                            <i class="material-icons" style="font-size: 30pt;">local_pizza</i>
+                                            <i class="material-icons red-text text-darken-3"  style="font-size: 30pt;">local_pizza</i>
                                         </div>
-                                        <p>Em andamento</p>
+                                        <p class="center-align">Em andamento</p>
                                     </div>
-                                    <div class="col s4 z-depth-4 white">
+                                    <div class="col s4 {% if order.status == 3 %}z-depth-4 white{% else %}grey lighten-3{% endif %}">
                                         <div class="Aligner" style="height: 200px; width: 100%;">
-                                            <i class="material-icons" style="font-size: 30pt;">motorcycle</i>
+                                            <i class="material-icons red-text text-darken-3" style="font-size: 30pt;">motorcycle</i>
                                         </div>
-                                        <p> Saiu para entrega! :3</p>
+                                        <p class="center-align"> Saiu para entrega! :3</p>
                                     </div>
 
                                 </div>
@@ -52,12 +55,17 @@
 
             <div class="col s12 m5 l5">
                 <ul class="collection">
-                    <li class="collection-item"><div>Pedidos recentes<a href="#!" class="secondary-content"><i class="material-icons">done_all</i></a></div></li>
+                    <li class="collection-item">
+                        <div>Pedidos recentes<a href="#!" class="secondary-content">
+                            <i class="material-icons">done_all</i></a>
+                        </div>
+                    </li>
                 </ul>
                 <ul class="collapsible" data-collapsible="accordion">
-                    {% for form in 'aaaaaaaaa' %}
+                    {% for order_delivered in orders_delivered %}
                         <li>
-                            <div class="collapsible-header"><span class="new badge green" data-badge-caption="entregue"></span><i class="material-icons">restaurant_menu</i>Pizza</div>
+                            <div class="collapsible-header"><span class="new badge green" data-badge-caption="entregue"></span>
+                                <i class="material-icons">restaurant_menu</i>Pizza</div>
                             <div class="collapsible-body"><div class="row">
 
                                 <div class="col s12">
@@ -65,6 +73,12 @@
                                 </div>
 
                             </div></div>
+                        </li>
+                    {% empty %}
+                        <li>
+                            <div class="collapsible-header z-depth-0">
+                                <i class="material-icons">restaurant_menu</i>Ainda nao pedidos entregues.
+                            </div>
                         </li>
                     {% endfor %}
                 </ul>

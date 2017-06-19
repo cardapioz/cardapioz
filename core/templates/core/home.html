@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}{% load staticfiles %}
 
 {% block content %}
-   {% include 'core/modal.html' %}
+    {% include 'core/modal.html' %}
 
     <div class="row">
 
@@ -10,15 +10,13 @@
 
             <h5 class="light link">Categoria </h5>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-
-                {% for post in 'aaaaaaaaaaaaaaaaaaaaaaaa' %}
-                    <div class="col m5 l4 s11 center ">
+                {% for produto in produtos %}
+                    <div class="col m5 l3 s11 center ">
                         <div class="card">
                             <div class="card-image">
-                                <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
-                                <span class="card-title truncate">Pizza aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa{{ foo.author }} {{ foo.titulo }}</span>
+                                <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
+                                <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
                                 <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
-
                             </div>
                             <div class="card-action">
                                 <a href="#modal1" class="red-text text-darken-3" >pedido rapido</a>
@@ -29,6 +27,7 @@
             </div>
         </div>
     </div>
+
     <link rel="stylesheet" href="{% static 'core/materialize/css/flickity.css' %}">
     <script src="{% static 'core/materialize/js/flickity.pkgd.min.js' %}"></script>
 {% endblock %}

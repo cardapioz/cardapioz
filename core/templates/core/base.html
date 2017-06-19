@@ -5,7 +5,7 @@
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/materialize.css' %}"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/style.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/style.css' %}"/>
     <script type="text/javascript" src="{% static 'core/js/jquery-3.2.1.min.js' %}"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,30 +14,46 @@
 <body class="grey lighten-5">
 <nav class="white" >
     <div class="container">
-        <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons  red-text text-darken-3">menu</i></a>
+        <a  data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons  red-text text-darken-3">menu</i></a>
 
         <div class="nav-wrapper">
 
-            <a href="{% url 'index' %}" class=" red-text text-darken-3 brand-logo">Cardapioz</a>
+            <a href="{% url 'index' %}" class=" red-text text-darken-3 brand-logo"><img style="top: 10px; position: relative;" width="auto" height="40px" src="{% static 'core/img/logo.png' %}"/></a>
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">notifications</i></a></li>
-                <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
-               {% if not user.is_authenticated %} <li><a href="{% url 'user-login' %}" class=" red-text text-darken-3"></a></li> {% endif %}
-            </ul>
+                <li><a href="{% url 'pedidos' %}" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
+                {% if not user.is_authenticated %}
+                    <li><a href="{% url 'user-login' %}" class=" red-text text-darken-3"></a></li>{% endif %}
+            </ul>d
         </div>
     </div>
     <ul id="slide-out" class="side-nav">
-        <li><div class="userView">
-            <div class="background">
-                <img src="{% static 'core/img/pexels-photo-199263.jpeg' %}">
+        <li>
+            <div class="userView">
+                <div class="background">
+                    <img src="{% static 'core/img/cover-cardapioz.png' %}">
+                </div>
+                <a href="{% url 'perfil' %}">
+                    <img class="circle"
+                         src="
+                            {% if user.user_photo %}
+                                {{ user.user_photo.url }}
+                            {% elif user.socialaccount_set.all.0.get_avatar_url %}
+                                {{ user.socialaccount_set.all.0.get_avatar_url }}
+                         {% endif %}
+                     ">
+                </a>
+                <a href="{% url 'perfil' %}">
+                    <span class="white-text name">{{ user.get_full_name|capfirst }}</span>
+                </a>
+                <a href="{% url 'perfil' %}">
+                    <span class="white-text email">{{ user.email }}</span>
+                </a>
             </div>
-            <a href="#!user"><img class="circle" src="{% static 'core/img/pexels-photo-199263.jpeg' %}"></a>
-            <a href="#!name"><span class="white-text name">{{ user.username }}</span></a>
-            <a href="#!email"><span class="white-text email">{{ user.email }}</span></a>
-        </div></li>
-        <li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>
-        <li><a href="#!">Second Link</a></li>
+        </li>
+        <li><a href="{% url 'usuario' %}"><i class="material-icons">settings</i>Meu perfil</a></li>
+        <li><a href="{% url 'pedidos' %}"><i class="material-icons">shopping_cart</i>Meus pedidos</a></li>
         <li><div class="divider"></div></li>
         <li><a class="subheader">Subheader</a></li>
         <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>

@@ -1,0 +1,71 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container" style="margin-top: 20px;">
+            <div class="row white z-depth-3" style="padding: 30px;">
+                <form method="post" enctype="multipart/form-data" class="col s12">{% csrf_token %}
+                    <div class="row">
+                        <div class="file-field input-field col s12 l6 m6">
+                            <div class="btn">
+                                <span>Foto do produto</span>
+                                {{ form.photo_medium }}
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" disabled type="text">
+                            </div>
+                        </div>
+
+                        <div class="input-field col s12 l6 m6">
+                            <i class="material-icons prefix">account_circle</i>
+                            {{ form.title }}
+                            <label for="first_name">Titulo</label>
+                        </div>
+
+                        <div class="input-field col s12 l6 m6">
+                            <i class="material-icons prefix">attach_money</i>
+                            {{ form.price }}
+                            <label for="price">Preço</label>
+                        </div>
+
+                        <div class="input-field col s12 l6 m6">
+                            <i class="material-icons prefix">assignment</i>
+                            {{ form.amount }}
+                            <label for="amount">Quantidade em estoque</label>
+                        </div>
+
+                        <div class="input-field col s12 l6 m6">
+                            <i class="material-icons prefix">view_list</i>
+
+                            {{ form.ingredients }}
+                            <label>Ingredientes</label>
+                        </div>
+
+                         <div class="input-field col s12 l6 m6">
+                            <i class="material-icons prefix">view_list</i>
+                            {{ form.category }}
+                            <label>Categoria</label>
+                        </div>
+
+
+                         <div class="input-field col s12 l6 m6">
+                            <i class="material-icons prefix">view_list</i>
+                            {{ form.sizes }}
+                            <label>Categoria</label>
+                        </div>
+
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">message</i>
+                            {{ form.description }}
+                            <label>Descriçao do produto</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">time</i>
+                            {{ form.preparation_time }}
+                            <label for="preparation_time">Tempo de prepraro</label>
+                        </div>
+                    </div>
+                    <button class="btn green btn-large waves-effect" type="submit">cadastrar produto</button>
+                </form>
+        </div>
+    </div>
+{% endblock %}

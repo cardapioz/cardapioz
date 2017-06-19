@@ -1,1 +1,4 @@
 .idea/
+/media_cdn/
+/media_cdn/*
+*.pyc
