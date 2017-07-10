@@ -2,6 +2,9 @@
 /media_cdn/
 /media_cdn/*
 *.pyc
+.pyc
 /staticfiles/*
 /whatever/*
+CACHE/
+__pycache__/
 
