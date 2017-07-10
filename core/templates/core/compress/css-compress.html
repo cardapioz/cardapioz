@@ -1,0 +1,7 @@
+{% load staticfiles %}
+{% load compress %}
+
+{% compress css  %}
+    <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/materialize.css' %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'core/css/style.css' %}"/>
+{% endcompress %}

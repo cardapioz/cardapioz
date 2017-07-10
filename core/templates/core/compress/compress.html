@@ -1,0 +1,9 @@
+{% load staticfiles %}
+{% load compress %}
+
+
+{% compress js  file jscompress%}
+    <script type="text/javascript" src="{% static 'core/js/jquery-3.2.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'core/materialize/js/materialize.js' %}"></script>
+    <script type="text/javascript" src="{% static 'core/js/jquery.js' %}"></script>
+{% endcompress %}

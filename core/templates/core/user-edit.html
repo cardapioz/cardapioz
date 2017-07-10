@@ -10,6 +10,7 @@
                         <div class="btn">
                             <span>Subir foto</span>
                             {{ form.user_photo }}
+                            {{ form.user_photo.errors }}
                         </div>
                         <div class="file-path-wrapper">
                             <input class="file-path validate" type="text">
@@ -17,13 +18,16 @@
                     </div>
                     <div class="input-field col s3">
                         {{ form.first_name }}
+                        {{ form.first_name.errors }}
                         <label for="first_name">Nome</label>
                     </div>
                     <div class="input-field col s3">
                         {{ form.last_name }}
+                        {{ form.last_name.errors }}
                         <label for="last_name">Sobrenome</label>
                     </div>
-
+                    {{ form.cnpj }}
+                    {{ form.cnpj.errors }}
 
                     <button class="btn btn-large green waves-effect">salvar perfil</button>
                 </form>

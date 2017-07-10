@@ -26,7 +26,8 @@ SECRET_KEY = 'x%b+w4+)e_y&mf#iw$!8e2hr9-ij-0o*r!wcl!%x7zhcvnru$v'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-AUTH_USER_MODEL = 'core.User'
+
+AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
@@ -37,20 +38,37 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     'django.contrib.sites',
+    # nossos apps
+    'core',
+    'api',
+    'about',
+    'accounts',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'rest_framework',
-    'api',
-    'django_resized'
+    'django_resized',
+    'compressor',
+    'localflavor',
 ]
 
+GOOGLE_API_KEY = 'AIzaSyAbOrPSvMuf7MvikKRbGBm9i7LUoMCFzns'
 SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+COMPRESS_OFFLINE = False
+HTML_MINIFY = True
+
+LOGIN_URL = 'user-login'
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
 
 
 MIDDLEWARE = [
@@ -61,6 +79,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
+
 ]
 
 ROOT_URLCONF = 'cardapioz.urls'
@@ -124,6 +145,8 @@ AUTH_PASSWORD_VALIDATORS = [
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
+
+COMPRESS_ENABLED = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

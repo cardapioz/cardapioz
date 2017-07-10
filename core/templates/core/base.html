@@ -3,64 +3,38 @@
 <head>
     <title>Cardapioz </title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    <link type="text/css" rel="stylesheet" href="{% static 'core/materialize/css/materialize.css' %}"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="{% static 'core/css/style.css' %}"/>
-    <script type="text/javascript" src="{% static 'core/js/jquery-3.2.1.min.js' %}"></script>
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}" />
+
+    {% include 'core/compress/css-compress.html' %}
 </head>
 {% csrf_token %}
 <body class="grey lighten-5">
-<nav class="white" >
+<nav class="white">
     <div class="container">
         <a  data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons  red-text text-darken-3">menu</i></a>
-
         <div class="nav-wrapper">
-
-            <a href="{% url 'index' %}" class=" red-text text-darken-3 brand-logo"><img style="top: 10px; position: relative;" width="auto" height="40px" src="{% static 'core/img/logo.png' %}"/></a>
-
+            <a href="{% url 'index' %}" class=" red-text text-darken-3 brand-logo" style="font-size: 4em; top: -5px; font-family: 'Wolf in the City';">Cardapioz</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">notifications</i></a></li>
-                <li><a href="{% url 'pedidos' %}" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
                 {% if not user.is_authenticated %}
-                    <li><a href="{% url 'user-login' %}" class=" red-text text-darken-3"></a></li>{% endif %}
-            </ul>d
+                    <li><a href="{% url 'user-login' %}" class="red-text text-darken-3">LOGIN</a></li>
+                    <li><a href="{% url 'user-login' %}" class="red-text text-darken-3">CADASTRO</a></li>
+                {% else %}
+                    <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">notifications</i></a></li>
+                    <li><a href="{% url 'pedidos' %}" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
     <ul id="slide-out" class="side-nav">
-        <li>
-            <div class="userView">
-                <div class="background">
-                    <img src="{% static 'core/img/cover-cardapioz.png' %}">
-                </div>
-                <a href="{% url 'perfil' %}">
-                    <img class="circle"
-                         src="
-                            {% if user.user_photo %}
-                                {{ user.user_photo.url }}
-                            {% elif user.socialaccount_set.all.0.get_avatar_url %}
-                                {{ user.socialaccount_set.all.0.get_avatar_url }}
-                         {% endif %}
-                     ">
-                </a>
-                <a href="{% url 'perfil' %}">
-                    <span class="white-text name">{{ user.get_full_name|capfirst }}</span>
-                </a>
-                <a href="{% url 'perfil' %}">
-                    <span class="white-text email">{{ user.email }}</span>
-                </a>
-            </div>
-        </li>
-        <li><a href="{% url 'usuario' %}"><i class="material-icons">settings</i>Meu perfil</a></li>
-        <li><a href="{% url 'pedidos' %}"><i class="material-icons">shopping_cart</i>Meus pedidos</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Subheader</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-        <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
-        <li><a onclick="logout()" class="waves-effect" href="#">Sair</a></li>
+
+        {% if user.is_authenticated %}
+            {% include 'core/menu/autenticated.html' %}
+        {% else %}
+            {% include 'core/menu/no-autenticated.html' %}
+        {% endif %}
     </ul>
+
 </nav>
 {% block content %}{% endblock %}
 <footer class="page-footer grey darken-3">
@@ -73,24 +47,21 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Sobre</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Trabalhe conosco</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Termos</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Como funciona</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">Sobre</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">Trabalhe conosco</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">Termos</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#">Como funciona</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="footer-copyright">
-        <div class="container">
-            © 2017 Copyright Giraffe
-            <a class="grey-text text-lighten-4 right" href="#!">Blog Cardapioz</a>
+        <div class="container center-align">
+            © 2017 Giraffe
+            <img width="30px" style="left: 10px; position: relative;" height="auto" src="{% static 'core/img/g3377.png' %}">
         </div>
     </div>
 </footer>
-
-<script type="text/javascript" src="{% static 'core/materialize/js/materialize.js' %}"></script>
-<script type="text/javascript" src="{% static 'core/js/jquery.js' %}"></script>
-
+{% include 'core/compress/compress.html' %}
 </body>
 </html>

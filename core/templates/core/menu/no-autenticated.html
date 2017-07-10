@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<li>
+    <div class="userView" style="height: 100px;">
+        <div class="background center-align Aligner" >
+            <img  width="50%" height="auto" src="{% static 'core/img/logo.png' %}">
+        </div>
+    </div>
+</li>
+<li><a href="{% url 'user-login' %}" class="btn red darken-3 waves-effect waves-button-input">login</a></li>
+<li><a href="{% url 'user-login' %}" class="btn green waves-effect">cadastro</a></li>
+<li><div class="divider"></div></li>
+<li><a class="waves-effect" href="#!">Sobre o cardapioz</a></li>
+<li><a class="waves-effect" href="#!">Trabalhe conosco</a></li>

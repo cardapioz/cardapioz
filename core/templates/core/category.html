@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+    <div class="container">
+        <nav class="white black-text" style="margin: 10px 0;">
+            <div class="container black-text">
+                <div class="nav-wrapper black-text">
+                <div class="col s12">
+                    <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
+                    <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
+                </div>
+                    <style>
+                        .breadcrumb:before{
+                            color: #000;
+                        }
+                    </style>
+            </div>
+            </div>
+        </nav>
+        <div class="row">
+            {% for produto in produtos %}
+                <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}"><div class="col m5 l3 s11 center ">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
+                            <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
+                            <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
+                        </div>
+                        <div class="card-action">
+                            <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
+                        </div>
+                    </div>
+                </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

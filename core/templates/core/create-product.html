@@ -24,25 +24,28 @@
                         <div class="input-field col s12 l6 m6">
                             <i class="material-icons prefix">attach_money</i>
                             {{ form.price }}
+                            {{ form.price.errors }}
                             <label for="price">Preço</label>
                         </div>
 
                         <div class="input-field col s12 l6 m6">
                             <i class="material-icons prefix">assignment</i>
                             {{ form.amount }}
+                            {{ form.ammount.errors }}
                             <label for="amount">Quantidade em estoque</label>
                         </div>
 
                         <div class="input-field col s12 l6 m6">
                             <i class="material-icons prefix">view_list</i>
-
                             {{ form.ingredients }}
+                            {{ form.ingredients.errors }}
                             <label>Ingredientes</label>
                         </div>
 
                          <div class="input-field col s12 l6 m6">
                             <i class="material-icons prefix">view_list</i>
                             {{ form.category }}
+                            {{ form.category.errors }}
                             <label>Categoria</label>
                         </div>
 
@@ -50,17 +53,20 @@
                          <div class="input-field col s12 l6 m6">
                             <i class="material-icons prefix">view_list</i>
                             {{ form.sizes }}
+                            {{ form.sizes.errors }}
                             <label>Categoria</label>
                         </div>
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">message</i>
                             {{ form.description }}
+                            {{ form.description.errors }}
                             <label>Descriçao do produto</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="material-icons prefix">time</i>
                             {{ form.preparation_time }}
+                            {{ form.preparation_time.errors }}
                             <label for="preparation_time">Tempo de prepraro</label>
                         </div>
                     </div>

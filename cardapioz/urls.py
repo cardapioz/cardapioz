@@ -22,7 +22,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('core.urls')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^api/', include('api.urls'))
+    url(r'^api/', include('api.urls')),
+    url(r'sobre/', include('about.urls')),
 ]
 
 if settings.DEBUG:

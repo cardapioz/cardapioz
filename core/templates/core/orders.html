@@ -65,7 +65,7 @@
                     {% for order_delivered in orders_delivered %}
                         <li>
                             <div class="collapsible-header"><span class="new badge green" data-badge-caption="entregue"></span>
-                                <i class="material-icons">restaurant_menu</i>Pizza</div>
+                                <i class="material-icons">restaurant_menu</i>{{ order_delivered.product.title }}</div>
                             <div class="collapsible-body"><div class="row">
 
                                 <div class="col s12">
@@ -77,7 +77,7 @@
                     {% empty %}
                         <li>
                             <div class="collapsible-header z-depth-0">
-                                <i class="material-icons">restaurant_menu</i>Ainda nao pedidos entregues.
+                                <i class="material-icons">restaurant_menu</i>Ainda não há pedidos entregues.
                             </div>
                         </li>
                     {% endfor %}
@@ -85,5 +85,8 @@
             </div>
 
         </div>
+        <form action="/pedidos/" method="post">{% csrf_token %}
+            <button type="submit">submit</button>
+        </form>
     </div>
 {% endblock %}

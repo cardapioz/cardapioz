@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<li>
+    <div class="userView">
+        <div class="background">
+            <img src="{% static 'core/img/cover-cardapioz.png' %}">
+        </div>
+        <a href="">
+            <img class="circle" src="{% if user.user_photo.url != '/static/core/img/user.png' and not user.socialaccount_set.all.0.get_avatar_url %}{{ user.user_photo.url }}{% elif user.socialaccount_set.all.0.get_avatar_url %}{{ user.socialaccount_set.all.0.get_avatar_url }}{% endif %}">
+        </a>
+        <a href="">
+            <span class="white-text name">{{ user.get_full_name|capfirst }}</span>
+        </a>
+        <a href="">
+            <span class="white-text email">{{ user.email }}</span>
+        </a>
+    </div>
+</li>
+{{ user.socialaccount_set.all.0.get_avatar_url }}
+<li><a href="{% url 'usuario' %}"><i class="material-icons">settings</i>Meu perfil</a></li>
+<li><a href="{% url 'pedidos' %}"><i class="material-icons">shopping_cart</i>Meus pedidos</a></li>
+<li><div class="divider"></div></li>
+<li><a class="subheader">Subheader</a></li>
+<li><a class="waves-effect" href="#">Third Link With Waves</a></li>
+<li><a class="waves-effect" href="#">Third Link With Waves</a></li>
+<li><a class="waves-effect" href="#">Third Link With Waves</a></li>
+<li><a onclick="logout()" class="waves-effect" href="#">Sair</a></li>
