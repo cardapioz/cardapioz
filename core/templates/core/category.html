@@ -1,20 +1,19 @@
 {% extends 'core/base.html' %}
 {% block content %}
-
     <div class="container">
         <nav class="white black-text" style="margin: 10px 0;">
             <div class="container black-text">
                 <div class="nav-wrapper black-text">
-                <div class="col s12">
-                    <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
-                    <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
-                </div>
+                    <div class="col s12">
+                        <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
+                        <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
+                    </div>
                     <style>
                         .breadcrumb:before{
                             color: #000;
                         }
                     </style>
-            </div>
+                </div>
             </div>
         </nav>
         <div class="row">

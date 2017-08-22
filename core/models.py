@@ -1,8 +1,5 @@
 # coding=utf-8
-import sys
-import time
 
-from PIL import Image
 
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -48,7 +45,7 @@ class Category(AbsPerm, models.Model):
     title = models.CharField(max_length=30, unique=True, blank=False)
     category_photo = ResizedImageField(size=[390, 200], crop=['top', 'left'], quality=100, upload_to='category')
     description = models.TextField(max_length=144)
-    slug = models.SlugField()
+    slug = models.SlugField(blank=True, null=True)
 
     def __str__(self):
         return self.title

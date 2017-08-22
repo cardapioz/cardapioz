@@ -4,7 +4,7 @@
     <title>Cardapioz </title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}" />
+    <link rel="shortcut icon" href="{% static 'core/img/cardapioz-logo-app.png' %}" />
 
     {% include 'core/compress/css-compress.html' %}
 </head>
@@ -12,9 +12,11 @@
 <body class="grey lighten-5">
 <nav class="white">
     <div class="container">
-        <a  data-activates="slide-out" class="button-collapse show-on-large"><i class="material-icons  red-text text-darken-3">menu</i></a>
+        <a  data-activates="slide-out" class="button-collapse show-on-large">
+            <i class="material-icons  red-text text-darken-3">menu</i></a>
         <div class="nav-wrapper">
-            <a href="{% url 'index' %}" class=" red-text text-darken-3 brand-logo" style="font-size: 4em; top: -5px; font-family: 'Wolf in the City';">Cardapioz</a>
+            <a href="{% url 'index' %}" class="red-text text-darken-3 brand-logo logo">Cardapioz</a>
+
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 {% if not user.is_authenticated %}
                     <li><a href="{% url 'user-login' %}" class="red-text text-darken-3">LOGIN</a></li>
@@ -23,11 +25,11 @@
                     <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">notifications</i></a></li>
                     <li><a href="{% url 'pedidos' %}" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
                 {% endif %}
+                <li><a href="#search" class=" red-text text-darken-3"><i class="material-icons">search</i></a></li>
             </ul>
         </div>
     </div>
     <ul id="slide-out" class="side-nav">
-
         {% if user.is_authenticated %}
             {% include 'core/menu/autenticated.html' %}
         {% else %}
@@ -36,12 +38,28 @@
     </ul>
 
 </nav>
+
+
+<nav class="white" id="search" style="position: absolute; top: 0; z-index: 1; display: none;">
+    <div class="container">
+        <div class="nav-wrapper">
+            <form class="">
+                <div class="input-field">
+                    <input id="search" type="search" required style="height: 100%;">
+                    <label class="label-icon" for="search"><i class="material-icons red-text text-darken-3">search</i></label>
+                    <i class="material-icons red-text text-darken-3">close</i>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+
 {% block content %}{% endblock %}
 <footer class="page-footer grey darken-3">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">Cardapioz Pedidos Online</h5>
+                <h5 class="white-text logo">Cardapioz</h5>
                 <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
             </div>
             <div class="col l4 offset-l2 s12">

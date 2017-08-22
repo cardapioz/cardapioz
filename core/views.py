@@ -128,4 +128,5 @@ class KitchensView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(KitchensView, self).get_context_data(**kwargs)
+        context['title'] = 'cozinha'
         return context

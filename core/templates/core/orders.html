@@ -12,13 +12,13 @@
                         <li>
                             <div class="collapsible-header">
                                 <span class="new badge {{ order.status|color }}" data-badge-caption="{{ order.get_status }}"></span>
-                                <i class="material-icons">keyboard_arrow_down</i>{{ order.product.title }}</div>
-                            <div class="collapsible-body">
+                                <i class="material-icons">keyboard_arrow_down</i><span title="{{ order.product.title }}" class="truncate">{{ order.product.title }}</span></div>
+                            <div class="white collapsible-body">
                                 <div class="row">
                                     <ul class="collection">
                                         <li class="collection-item avatar">
                                             <img src="{{ order.product.photo_thumb.url }}" alt="" class="circle">
-                                            <span class="title">{{ order.product.title }}</span>
+                                            <span class="title truncate">{{ order.product.title }}</span>
                                             <p>{{ order.product.author.first_name }}<br>
                                                 Second Line
                                             </p>
@@ -61,18 +61,20 @@
                         </div>
                     </li>
                 </ul>
+
                 <ul class="collapsible" data-collapsible="accordion">
                     {% for order_delivered in orders_delivered %}
                         <li>
                             <div class="collapsible-header"><span class="new badge green" data-badge-caption="entregue"></span>
-                                <i class="material-icons">restaurant_menu</i>{{ order_delivered.product.title }}</div>
-                            <div class="collapsible-body"><div class="row">
-
-                                <div class="col s12">
-                                    Avalie este pedido
+                                <i class="material-icons">restaurant_menu</i>{{ order_delivered.product.title }}
+                            </div>
+                            <div class="white collapsible-body">
+                                <div class="row">
+                                    <div class="col s12">
+                                        Avalie este pedido
+                                    </div>
                                 </div>
-
-                            </div></div>
+                            </div>
                         </li>
                     {% empty %}
                         <li>
@@ -83,9 +85,8 @@
                     {% endfor %}
                 </ul>
             </div>
-
         </div>
-        <form action="/pedidos/" method="post">{% csrf_token %}
+        <form action="{% url 'pedidos' %}" method="post">{% csrf_token %}
             <button type="submit">submit</button>
         </form>
     </div>

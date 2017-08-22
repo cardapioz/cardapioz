@@ -8,8 +8,10 @@
             <div class="col s12 m12 l6">
                 <ul class="white collection">
                     <li class="collection-item avatar">
-                        <img src="{{ produto.author.user_photo.url }}" alt="" class="circle">
-                        <span class="title">{{ produto.author.first_name|capfirst }}
+                        <img src="{{ produto.owner.user_photo.url }}" alt="Foto Empresa" class="circle">
+                        <span class="title">
+                            {{ produto.owner.first_name|capfirst }}
+
                             <span style="top: -2px; width: 20px; height: 20px;" class="btn-floating pulse green accent-4"></span>
                         </span>
                         <p>{{ produto.category_title }}<br><br>
@@ -75,7 +77,7 @@
                     <ul class="collection">
                         {% for comment in comments %}
                             <li class="collection-item avatar">
-                                <img src="{{ comment.user.user_photo.url }}" alt="" class="circle">
+                                <img src="{% if comment.user.user_photo.url != '/static/core/img/user.png' and not comment.user.socialaccount_set.all.0.get_avatar_url %}{{ comment.user.user_photo.url }}{% elif comment.user.socialaccount_set.all.0.get_avatar_url %}{{ comment.user.socialaccount_set.all.0.get_avatar_url }}{% endif %}" alt="" class="circle">
                                 <span class="title">{{ comment.user.first_name|capfirst }}</span>
                                 <p class="">{{ comment.comment_text }}</p>
                                 <span class="secondary-content grey-text text-lighten-1">{{ comment.data_create|date:'d/m/y H:i' }}</span>
@@ -86,23 +88,29 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    <form id="form" class="col s12">{% csrf_token %}
-                        <div class="row">
-                            <div class="input-field col s8 m8 l10">
-                                <img class="circle prefix" style="width: 30px; height: 30px;" src="{{ user.user_photo.url }}" alt="">
-                                <input id="icon_prefix"  name="comment_text" type="text" placeholder="Deixe seu comentário..." class="validate" maxlength="144" data-length="144">
-                                <label for="icon_prefix">{{ user.get_full_name|capfirst }}</label>
+                    {% if user.is_authenticated %}
+                        <form id="form" class="col s12">{% csrf_token %}
+                            <div class="row">
+                                <div class="input-field col s8 m8 l10">
+                                    <img class="circle prefix" style="width: 30px; height: 30px;" src="{% if user.user_photo.url != '/static/core/img/user.png' and not user.socialaccount_set.all.0.get_avatar_url %}{{ user.user_photo.url }}{% elif user.socialaccount_set.all.0.get_avatar_url %}{{ user.socialaccount_set.all.0.get_avatar_url }}{% endif %}" alt="Avatar usuário">
+                                    <input id="icon_prefix"  name="comment_text" type="text" placeholder="Deixe seu comentário..." class="validate" maxlength="144" data-length="144">
+                                    <label for="icon_prefix">{{ user.get_full_name|capfirst }}</label>
+                                </div>
+                                <input style="display: none;" name="product" type="text" value="{{ produto.pk }}">
+                                <div class=" col s2 m8 l2" style="height: 75px; padding: 20px 5px;">
+                                    <button id="post" class="btn waves-effect red darken-3 waves-light" type="button">
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
                             </div>
-                            <input style="display: none;" name="product" type="text" value="{{ produto.pk }}">
-                            <div class=" col s2 m8 l2" style="height: 75px; padding: 20px 5px;">
-                                <button id="post" class="btn waves-effect red darken-3 waves-light" type="button">
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </div>
+                        </form>
+                    {% else %}
+                        <div class="col s12">
+                            <p>Faça login para adicionar um comentario</p>
+                            <a href="{% url 'user-login' %}" class="btn green darken-1 waves-effect">fazer login</a>
                         </div>
-                    </form>
+                    {% endif %}
                 </div>
-
             </div>
         </div>
     </div>

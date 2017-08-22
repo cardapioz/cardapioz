@@ -3,6 +3,12 @@
     font-family: 'Wolf in the City';
     src: url('../materialize/fonts/wolf/wolf.ttf') format('truetype');
 }
+
+.logo{
+    font-family: 'Wolf in the City';
+    font-size: 4em !important;
+    top: -5px;
+}
 .btn-radius {
     border-radius: 100px;
 }
@@ -67,7 +73,7 @@
     text-shadow: 0px 0px 20px rgba(0,0,0,0.5);
 }
 .image-box{
-    width: 300px;
+    width: 300px !important;
     overflow: hidden;
 }
 
@@ -97,5 +103,24 @@
 .image:hover #box{
     background-color: rgba(0,0,0,0.7) !important;
     transition: .8s;
+}
 
+.modal-express {
+    height: 100%;
+    max-height: 100%;
+    width: 100% !important;
+    top: 0 !important;
+    will-change: opacity;
+}
+
+nav .button-express {
+    float: left;
+    position: relative;
+    z-index: 1;
+    height: 56px;
+    margin: 0 18px;
+}
+
+.search #search:target {
+    display: block;
 }

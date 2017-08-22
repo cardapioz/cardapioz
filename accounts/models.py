@@ -12,6 +12,10 @@ from django.core.validators import RegexValidator
 from django.utils.translation import ugettext_lazy as _
 from django_resized import ResizedImageField
 
+from django.core.cache import cache
+import datetime
+
+from cardapioz import settings
 
 
 class UserManager(BaseUserManager):

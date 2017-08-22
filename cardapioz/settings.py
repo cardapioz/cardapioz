@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -52,7 +51,15 @@ INSTALLED_APPS = [
     'django_resized',
     'compressor',
     'localflavor',
+    'channels',
 ]
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        "ROUTING": "cardapioz.routing.channel_routing",
+    },
+}
 
 GOOGLE_API_KEY = 'AIzaSyAbOrPSvMuf7MvikKRbGBm9i7LUoMCFzns'
 SITE_ID = 1
@@ -81,7 +88,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'htmlmin.middleware.HtmlMinifyMiddleware',
     'htmlmin.middleware.MarkRequestMiddleware',
-
 ]
 
 ROOT_URLCONF = 'cardapioz.urls'

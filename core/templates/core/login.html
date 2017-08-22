@@ -1,18 +1,23 @@
 {% extends 'core/base.html' %}
+{% load staticfiles %}
 {% block content %}
     <div class="container" style="height: 100vh;">
         <div class="container Aligner" style="height: 100vh;">
 
             <div class="row z-depth-2 white" >
-                <div class="container center-align">
-                    <h5>entre com:</h5>
-                    <div class="container center-align Aligner" style="height: 100px;">
-                        <a  href="/accounts/facebook/login/?process=login" class="btn btn-large indigo waves-effect waves-light darken-1">facebook</a><br>
-
+                <div class="center-align">
+                    <div class="center-align Aligner" style="background: url({% static 'core/img/food-pizza-restaurant-eating.jpg' %} )no-repeat center/cover; height: 300px; width: 100% !important;" >
+                        <div class="container">
+                            <h5 class="white-text uppercase">ENTRE COM:</h5>
+                            <div class="container center-align Aligner" style="height: 100px;">
+                                <a  href="/accounts/facebook/login/?process=login" class="btn btn-large indigo waves-effect waves-light darken-1">facebook</a><br>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
                 <div class="divider"></div>
-                <form  method="post" action="{% url 'account_login' %}" class="col s12" style="text-align: center">
+                <form  method="post" action="{% url 'account_login' %}" class="col s12" style="padding: 20px; text-align: center">
                     {% csrf_token %}
                     <div class="row">
                         <div class="input-field col s12">
