@@ -1,0 +1,20 @@
+{% for produto in produtos %}
+    <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
+
+            <div class="z-depth-2 card-product">
+                <div title="Avaliação do produto é {{ produto.pk }} estrelas" class="avaliacao">
+                    {{ produto.pk }}
+                    <i class="material-icons right">star</i>
+                </div>
+                <img class="border-8px" width="200px" height="200px" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk }}">
+                <div class="card-area">
+                    <h6 class="price right green-text">
+                        R${{ produto.price }}<br>
+                        un.
+                    </h6>
+                    <h5 class="truncate" title="{{ produto.title|capfirst }}">{{ produto.title|capfirst }}</h5>
+                    <a href="#{{ produto.owner.username }}"  title="Acesse o cardápio de {{ produto.owner.username }}" class="owner">por: {{ produto.owner.username }}</a>
+                </div>
+            </div>
+    </a>
+{% endfor %}

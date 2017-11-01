@@ -3,9 +3,11 @@
     font-family: 'Wolf in the City';
     src: url('../materialize/fonts/wolf/wolf.ttf') format('truetype');
 }
-
+.justify-align{
+    text-align: justify !important;
+}
 .logo{
-    font-family: 'Wolf in the City';
+    font-family: 'Wolf in the City', serif;
     font-size: 4em !important;
     top: -5px;
 }
@@ -41,6 +43,10 @@
     padding-top: 0px !important;
 }
 
+.flickity-viewport{
+    padding-left: 30px !important;
+    height: 290px !important;
+}
 .carousel-cell {
     width: auto;
     height: auto;
@@ -52,6 +58,7 @@
     opacity: .3;
     background: hsla(0, 0%, 100%, 0.5);
 }
+
 
 .container{
     max-width: 1218px !important;
@@ -67,6 +74,7 @@
     text-align: center;
     padding: 0 !important;
 }
+
 .image h4{
     position: absolute;
     font-size: 1.6rem;
@@ -123,4 +131,21 @@ nav .button-express {
 
 .search #search:target {
     display: block;
+}
+
+.categoria-image{
+    height: 250px;
+    position: relative;
+    z-index: 0;
+    top: 0px;
+    z-index: -1;
+    webkit-filter: blur(1.5px);
+    -moz-filter: blur(1.5px);
+    -o-filter: blur(1.5px);
+    -ms-filter: blur(1.5px);
+    filter: blur(1.5px);
+}
+
+.breadcrumb:before{
+    color: #000;
 }

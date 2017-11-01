@@ -3,18 +3,17 @@
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l6">
-                <img width="100%"  style="width: 100%; max-width: 597px; height: auto; max-heigth: 485px; margin: 10px 0; position: relative;" src="{{ produto.photo_medium.url }}">
+                <img width="100%"  class="materialboxed border-8px" style="width: 100%; height: auto; margin: 10px 0; position: relative;" src="{{ produto.photo_medium.url }}">
             </div>
             <div class="col s12 m12 l6">
                 <ul class="white collection">
                     <li class="collection-item avatar">
-                        <img src="{{ produto.owner.user_photo.url }}" alt="Foto Empresa" class="circle">
+                        <img src="{{ produto.owner.store.photo.url }}" alt="Foto Empresa" class="circle">
                         <span class="title">
-                            {{ produto.owner.first_name|capfirst }}
-
+                            {{ produto.store.name|capfirst }}
                             <span style="top: -2px; width: 20px; height: 20px;" class="btn-floating pulse green accent-4"></span>
                         </span>
-                        <p>{{ produto.category_title }}<br><br>
+                        <p><a href="{% url 'category' slug=produto.category_title %}">{{ produto.category_title|capfirst }}</a><br><br>
                         <p class="text-success">Avaliação</p>
                         <i class="material-icons yellow-text">star</i>
                         <i class="material-icons yellow-text">star</i>
@@ -72,6 +71,7 @@
                         </li>
                     </ul>
                 </div>
+
                 <div class="col s12">
                     <h5 class="light comments_count">Comentários ({{ comments_total }})</h5>
                     <ul class="collection">
@@ -107,10 +107,39 @@
                     {% else %}
                         <div class="col s12">
                             <p>Faça login para adicionar um comentario</p>
-                            <a href="{% url 'user-login' %}" class="btn green darken-1 waves-effect">fazer login</a>
+                            <a href="{% url 'account_login' %}" class="btn green darken-1 waves-effect">fazer login</a>
                         </div>
                     {% endif %}
                 </div>
+            </div>
+            <div class="col s12 l6 m12">
+                {% if relateds %}
+                    <a href="{% url 'category' slug=produto.category_product.slug  %}">
+                        <h5 class="light">Ver mais relacionados</h5>
+                    </a>
+                {% endif %}
+                {% for related in relateds %}
+                    <a href="{% url 'product-view' title=related.title|slugify pk=related.pk %}">
+                        <div class="col s6 center">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{{ related.photo_medium.url }}">
+                                    <span class="card-title truncate" title="{{ related.title|capfirst}}">{{ related.title|capfirst }}</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light white">
+                                        <i class="material-icons red-text text-darken-3">favorite_border</i>
+                                    </a>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    {% include 'core/components/not-found-cheff.html' with title='Não há produtos relacionados' text='Crie um alerta e seja avisado quando houver algum prato preparado.' %}
+
+                {% endfor %}
+
             </div>
         </div>
     </div>

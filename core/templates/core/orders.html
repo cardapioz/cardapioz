@@ -49,6 +49,12 @@
 
                             </div>
                         </li>
+                    {% empty %}
+                        <li>
+                            <div class="collapsible-header z-depth-0">
+                                <i class="material-icons">restaurant</i>Ainda não há pedidos realizados.
+                            </div>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>

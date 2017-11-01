@@ -5,7 +5,7 @@
         <div class="container">
             {% for categoria in category_list %}
                 <a href="{% url 'category' slug=categoria.slug %}">
-                    <div class="col s6 l4 m4" style="margin: 2px 0px; padding: 0;">
+                    <div class="col s6 l4 m4" style="margin: 2px 0; padding: 0;">
                         <div style="width: 98%; height: auto;">
                             <div class="Aligner center-align white depth-1 card-type" style="width: 300px; overflow: hidden;">
                                 <div class="image" style="width: 100%; background: url('{{ categoria.category_photo.url }}') center/cover;">

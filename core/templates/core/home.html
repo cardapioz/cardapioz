@@ -1,16 +1,12 @@
-{% extends 'core/base.html' %}{% load staticfiles %}
-
+{% extends 'core/base.html' %}
+{% load staticfiles %}
 {% block content %}
-    {% include 'core/modal.html' %}
-
     <div class="row">
-
         <div class="container">
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-
                 {% for categoria in categorias %}
                     <a href="{% url 'category' slug=categoria.slug %}">
-                        <div class="col s6 l4 m4" style="margin: 2px 0px; padding: 0;">
+                        <div class="col s6 l4 m4" style="margin: 2px 0; padding: 0;">
                             <div style="width: 98%; height: auto;">
                                 <div class="Aligner image-box center-align white depth-1 card-type">
                                     <div class="image" style="width: 100%; background: url('{{ categoria.category_photo.url }}') center/cover;">
@@ -28,62 +24,17 @@
     </div>
     <div class="row">
         <div class="container">
-             <h5 class="light link">Adicionados recentemente </h5>
+            <h5 class="light link">Adicionados recentemente </h5>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-                {% for produto in produtos %}
-                    <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
-                        <div class="col m3 l2 s10 center ">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
-                                    <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
+                {% include 'core/components/card-product.html' with produtos=produtos %}
             </div>
             <h5 class="light link">Mais Pedidos </h5>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-                {% for produto in produtos %}
-                    <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
-                        <div class="col m3 l2 s10 center ">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
-                                    <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
+                {% include 'core/components/card-product.html' with produtos=produtos %}
             </div>
-            <h5 class="light link">Mais bem avaliados </h5>
+            <h5 class="light link">Mais bem avaliados</h5>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-                {% for produto in produtos %}
-                    <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
-                        <div class="col m3 l2 s10 center ">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
-                                    <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                {% endfor %}
+                {% include 'core/components/card-product.html' with produtos=produtos %}
             </div>
         </div>
     </div>

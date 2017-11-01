@@ -10,7 +10,7 @@
 </head>
 {% csrf_token %}
 <body class="grey lighten-5">
-<nav class="white">
+<nav>
     <div class="container">
         <a  data-activates="slide-out" class="button-collapse show-on-large">
             <i class="material-icons  red-text text-darken-3">menu</i></a>
@@ -19,8 +19,8 @@
 
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 {% if not user.is_authenticated %}
-                    <li><a href="{% url 'user-login' %}" class="red-text text-darken-3">LOGIN</a></li>
-                    <li><a href="{% url 'user-login' %}" class="red-text text-darken-3">CADASTRO</a></li>
+                    <li><a href="{% url 'account_login' %}" class="red-text text-darken-3">LOGIN</a></li>
+                    <li><a href="{% url 'account_signup' %}" class="red-text text-darken-3">CADASTRO</a></li>
                 {% else %}
                     <li><a href="#" class=" red-text text-darken-3"><i class="material-icons">notifications</i></a></li>
                     <li><a href="{% url 'pedidos' %}" class=" red-text text-darken-3"><i class="material-icons">shopping_cart</i></a></li>
@@ -39,8 +39,7 @@
 
 </nav>
 
-
-<nav class="white" id="search" style="position: absolute; top: 0; z-index: 1; display: none;">
+<nav id="search" style="position: absolute; top: 0; z-index: 1; display: none;">
     <div class="container">
         <div class="nav-wrapper">
             <form class="">
@@ -80,6 +79,7 @@
         </div>
     </div>
 </footer>
+{% include 'core/modal.html' %}
 {% include 'core/compress/compress.html' %}
 </body>
 </html>

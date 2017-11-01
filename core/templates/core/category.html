@@ -1,37 +1,41 @@
-{% extends 'core/base.html' %}
+{% extends 'core/base.html' %}{% load static %}
 {% block content %}
-    <div class="container">
-        <nav class="white black-text" style="margin: 10px 0;">
-            <div class="container black-text">
-                <div class="nav-wrapper black-text">
-                    <div class="col s12">
-                        <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
-                        <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
+    <div class="content">
+        <div class="categoria-image" style="background: url({{ category.category_photo.url }}) center / cover;  ">
+
+        </div>
+        <div style="background-color: #fafafa; z-index: 1; border-top: 2px solid rgba(195,28,28, .5);">
+            <div class="container" style=" position: relative; top: -30px;">
+                <nav class="z-depth-2">
+                    <div class="container black-text">
+                        <div class="nav-wrapper black-text">
+                            <div class="col s12">
+                                <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
+                                <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
+                            </div>
+                        </div>
                     </div>
-                    <style>
-                        .breadcrumb:before{
-                            color: #000;
-                        }
-                    </style>
+                </nav>
+                <div class="row">
+                    {% for produto in produtos %}
+                        <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}"><div class="col m5 l3 s11 center ">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
+                                    <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
+                                    <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+                    {% empty %}
+                        {% include 'core/components/not-found-cheff.html' with title='Não há nenhum prato preparado nesta categoria.' text='Crie um alerta e seja avisado quando houver algum prato preparado.' def='' %}
+                    {% endfor %}
                 </div>
             </div>
-        </nav>
-        <div class="row">
-            {% for produto in produtos %}
-                <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}"><div class="col m5 l3 s11 center ">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="{% if produto.photo_thumb %}{{ produto.photo_thumb.url }}{% endif %}">
-                            <span class="card-title truncate" title="{{ produto.title|capfirst}}">{{ produto.title|capfirst }}</span>
-                            <a class="btn-floating halfway-fab waves-effect waves-light white"><i class="material-icons red-text text-darken-3">favorite_border</i></a>
-                        </div>
-                        <div class="card-action">
-                            <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
-                        </div>
-                    </div>
-                </div>
-                </a>
-            {% endfor %}
         </div>
     </div>
 {% endblock %}

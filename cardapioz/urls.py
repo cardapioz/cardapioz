@@ -17,14 +17,21 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django_private_chat import urls as django_private_chat_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('core.urls')),
-    url(r'^accounts/', include('allauth.urls')),
+    url(r'', include('product.urls')),
     url(r'^api/', include('api.urls')),
     url(r'sobre/', include('about.urls')),
+    url(r'^', include('django_private_chat.urls')),
+    url(r'^accounts/', include('allauth.urls'))
 ]
+
+
+admin.site.site_title, admin.site.site_header = 'Cardapioz', 'Cardapioz'
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

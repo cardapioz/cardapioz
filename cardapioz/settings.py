@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-AUTH_USER_MODEL = 'accounts.User'
 
 # Application definition
 
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'core',
     'api',
     'about',
-    'accounts',
+    'product',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -52,14 +52,21 @@ INSTALLED_APPS = [
     'compressor',
     'localflavor',
     'channels',
+    'django_private_chat',
 ]
 
+USE_MODELTRANSLATION = True
+
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "asgiref.inmemory.ChannelLayer",
-        "ROUTING": "cardapioz.routing.channel_routing",
-    },
+    'default': {
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+        'ROUTING': 'cardapioz.routing.channel_routing',
+    }
 }
+
 
 GOOGLE_API_KEY = 'AIzaSyAbOrPSvMuf7MvikKRbGBm9i7LUoMCFzns'
 SITE_ID = 1
@@ -69,7 +76,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 COMPRESS_OFFLINE = False
 HTML_MINIFY = True
 
-LOGIN_URL = 'user-login'
+LOGIN_URL = 'accounts_login'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -173,11 +180,14 @@ USE_TZ = True
 ACCOUNT_EMAIL_VERIFICATION = False
 LOGIN_REDIRECT_URL = '/'
 
+LOGIN_FIELD = 'email'
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(os.path.dirname(PROJECT_ROOT), 'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/imagens/'
+
+
 MEDIA_ROOT = os.path.join(os.path.dirname(PROJECT_ROOT), 'media_cdn')

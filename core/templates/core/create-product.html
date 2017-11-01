@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container" style="margin-top: 20px;">
-        <div class="row white z-depth-3" style="padding: 30px;">
+        <div class="row white z-depth-2" style="padding: 30px;">
             <form method="post" enctype="multipart/form-data" class="col s12">{% csrf_token %}
                 <div class="row">
                     <div class="file-field input-field col s12 l6 m6">
@@ -44,17 +44,16 @@
 
                     <div class="input-field col s12 l6 m6">
                         <i class="material-icons prefix">view_list</i>
-                        {{ form.category }}
+                        {{ form.category_product }}
                         {{ form.category.errors }}
                         <label>Categoria</label>
                     </div>
 
-
-                    <div class="input-field col s12 l6 m6">
+                     <div class="input-field col s12 l6 m6">
                         <i class="material-icons prefix">view_list</i>
-                        {{ form.sizes }}
+                        {{ form.sizes|capfirst }}
                         {{ form.sizes.errors }}
-                        <label>Categoria</label>
+                        <label>Tamanhos</label>
                     </div>
 
                     <div class="input-field col s12">
@@ -64,12 +63,23 @@
                         <label>Descriçao do produto</label>
                     </div>
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">time</i>
+                        <i class="material-icons prefix">timer</i>
                         {{ form.preparation_time }}
                         {{ form.preparation_time.errors }}
                         <label for="preparation_time">Tempo de prepraro</label>
                     </div>
                 </div>
+                 <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">textsms</i>
+                                    <input type="text" id="autocomplete-input" class="autocomplete">
+                                    <label for="autocomplete-input">Autocomplete</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <button class="btn green btn-large waves-effect" type="submit">cadastrar produto</button>
             </form>
         </div>
