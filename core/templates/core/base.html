@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <html>
 <head>
-    <title>Cardapioz </title>
+    <title>Cardapioz</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="shortcut icon" href="{% static 'core/img/cardapioz-logo-app.png' %}" />
@@ -27,8 +27,10 @@
                 {% endif %}
                 <li><a href="#search" class=" red-text text-darken-3"><i class="material-icons">search</i></a></li>
             </ul>
+
         </div>
     </div>
+
     <ul id="slide-out" class="side-nav">
         {% if user.is_authenticated %}
             {% include 'core/menu/autenticated.html' %}
@@ -64,7 +66,7 @@
             <div class="col l4 offset-l2 s12">
                 <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#">Sobre</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{% url 'about' %}">Sobre</a></li>
                     <li><a class="grey-text text-lighten-3" href="#">Trabalhe conosco</a></li>
                     <li><a class="grey-text text-lighten-3" href="#">Termos</a></li>
                     <li><a class="grey-text text-lighten-3" href="#">Como funciona</a></li>

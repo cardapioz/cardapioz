@@ -1,42 +1,40 @@
 {% extends 'core/base.html' %}{% load staticfiles %}
+{% load ratings %}
 {% block content %}
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l6">
                 <img width="100%"  class="materialboxed border-8px" style="width: 100%; height: auto; margin: 10px 0; position: relative;" src="{{ produto.photo_medium.url }}">
             </div>
+
             <div class="col s12 m12 l6">
                 <ul class="white collection">
                     <li class="collection-item avatar">
                         <img src="{{ produto.owner.store.photo.url }}" alt="Foto Empresa" class="circle">
                         <span class="title">
-                            {{ produto.store.name|capfirst }}
+                            {{ produto.owner.store.name|capfirst }}
                             <span style="top: -2px; width: 20px; height: 20px;" class="btn-floating pulse green accent-4"></span>
                         </span>
-                        <p><a href="{% url 'category' slug=produto.category_title %}">{{ produto.category_title|capfirst }}</a><br><br>
+                        <p><a href="{% url 'category' slug=produto.category_product.slug %}">{{ produto.category_title|capfirst }}</a><br><br>
                         <p class="text-success">Avaliação</p>
-                        <i class="material-icons yellow-text">star</i>
-                        <i class="material-icons yellow-text">star</i>
-                        <i class="material-icons yellow-text">star</i>
-                        <i class="material-icons yellow-text">star_border</i>
-                        <i class="material-icons yellow-text">star_border</i>
-                        </p>
+                        {% ratings produto %}
                         <span class="green-text text-darken-3 secondary-content">R${{ produto.price|floatformat:2 }}</span>
                     </li>
                     <li class="collection-item">
-                        <p>
                         <div class="input-field">
                             <input placeholder="Quantidade" id="quantidade" value="1"  min="1" type="number" class="validate">
                             <label for="quantidade">Quantidade</label>
                         </div>
-
-                        <p>
                         <div class="input-field">
-                            <select>
+
+                            <select title="Selecione um endereço">
                                 <option value="" disabled selected>Endereço de entrega</option>
-                                <option value="1">Prudente moraes 3</option>
-                                <option value="2">Professor sinval silva</option>
-                                <option value="3">Israel Pinheiro</option>
+                                {% for address in user.address.all %}
+                                    <option value="{{ address.pk }}">{{ address.full_address }}</option>
+                                {% endfor %}
+
                             </select>
                             <label>Escolha um endereço de entrega</label>
                         </div>
@@ -57,61 +55,20 @@
                 </ul>
             </div>
             <div class="col s12 l6 m12">
-                <div class="col s12">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header"><i class="material-icons">keyboard_arrow_down</i>Ingredientes</div>
-                            <ul class="collection collapsible-body" style="padding: 0;">
-                                {% for ingredient in produto.ingredients.all %}
-                                    <li class="collection-item">{{ ingredient }}</li>
-                                {% empty %}
-                                    <li class="collection-item">Não há ingredientes</li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="collapsible z-depth-0" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">keyboard_arrow_down</i>Ingredientes</div>
+                        <ul class="collection collapsible-body" style="padding: 0;">
+                            {% for ingredient in produto.ingredients.all %}
+                                <li class="collection-item">{{ ingredient }}</li>
+                            {% empty %}
+                                <li class="collection-item">Não há ingredientes</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
 
-                <div class="col s12">
-                    <h5 class="light comments_count">Comentários ({{ comments_total }})</h5>
-                    <ul class="collection">
-                        {% for comment in comments %}
-                            <li class="collection-item avatar">
-                                <img src="{% if comment.user.user_photo.url != '/static/core/img/user.png' and not comment.user.socialaccount_set.all.0.get_avatar_url %}{{ comment.user.user_photo.url }}{% elif comment.user.socialaccount_set.all.0.get_avatar_url %}{{ comment.user.socialaccount_set.all.0.get_avatar_url }}{% endif %}" alt="" class="circle">
-                                <span class="title">{{ comment.user.first_name|capfirst }}</span>
-                                <p class="">{{ comment.comment_text }}</p>
-                                <span class="secondary-content grey-text text-lighten-1">{{ comment.data_create|date:'d/m/y H:i' }}</span>
-                            </li>
-                        {% empty %}
-                            <li class="collection-item avatar">
-                                <span class="title">Não há comentários</span>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                    {% if user.is_authenticated %}
-                        <form id="form" class="col s12">{% csrf_token %}
-                            <div class="row">
-                                <div class="input-field col s8 m8 l10">
-                                    <img class="circle prefix" style="width: 30px; height: 30px;" src="{% if user.user_photo.url != '/static/core/img/user.png' and not user.socialaccount_set.all.0.get_avatar_url %}{{ user.user_photo.url }}{% elif user.socialaccount_set.all.0.get_avatar_url %}{{ user.socialaccount_set.all.0.get_avatar_url }}{% endif %}" alt="Avatar usuário">
-                                    <input id="icon_prefix"  name="comment_text" type="text" placeholder="Deixe seu comentário..." class="validate" maxlength="144" data-length="144">
-                                    <label for="icon_prefix">{{ user.get_full_name|capfirst }}</label>
-                                </div>
-                                <input style="display: none;" name="product" type="text" value="{{ produto.pk }}">
-                                <div class=" col s2 m8 l2" style="height: 75px; padding: 20px 5px;">
-                                    <button id="post" class="btn waves-effect red darken-3 waves-light" type="button">
-                                        <i class="material-icons right">send</i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    {% else %}
-                        <div class="col s12">
-                            <p>Faça login para adicionar um comentario</p>
-                            <a href="{% url 'account_login' %}" class="btn green darken-1 waves-effect">fazer login</a>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
+                {% include 'core/components/comments.html' %}
             <div class="col s12 l6 m12">
                 {% if relateds %}
                     <a href="{% url 'category' slug=produto.category_product.slug  %}">
@@ -119,22 +76,7 @@
                     </a>
                 {% endif %}
                 {% for related in relateds %}
-                    <a href="{% url 'product-view' title=related.title|slugify pk=related.pk %}">
-                        <div class="col s6 center">
-                            <div class="card">
-                                <div class="card-image">
-                                    <img src="{{ related.photo_medium.url }}">
-                                    <span class="card-title truncate" title="{{ related.title|capfirst}}">{{ related.title|capfirst }}</span>
-                                    <a class="btn-floating halfway-fab waves-effect waves-light white">
-                                        <i class="material-icons red-text text-darken-3">favorite_border</i>
-                                    </a>
-                                </div>
-                                <div class="card-action">
-                                    <a href="#modal1" class="red-text text-darken-3" >pedido rápido</a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                    {% include 'core/components/card-product.html' with produtos=relateds %}
                 {% empty %}
                     {% include 'core/components/not-found-cheff.html' with title='Não há produtos relacionados' text='Crie um alerta e seja avisado quando houver algum prato preparado.' %}
 

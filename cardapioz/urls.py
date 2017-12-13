@@ -24,9 +24,10 @@ urlpatterns = [
     url(r'', include('core.urls')),
     url(r'', include('product.urls')),
     url(r'^api/', include('api.urls')),
-    url(r'sobre/', include('about.urls')),
+    url(r'^sobre/', include('about.urls')),
     url(r'^', include('django_private_chat.urls')),
-    url(r'^accounts/', include('allauth.urls'))
+    url(r'^accounts/', include('allauth.urls')),
+    url(r'^ratings/', include('star_ratings.urls', namespace='ratings', app_name='ratings')),
 ]
 
 

@@ -3398,6 +3398,10 @@ small {
 .border-8px {
   border-radius: 8px; }
 
+.img-produto {
+  width: 200px;
+  height: 200px; }
+
 .card-product {
   background: white;
   border-radius: 8px !important;
@@ -3407,7 +3411,7 @@ small {
   height: 250px; }
   .card-product .avaliacao {
     position: absolute;
-    width: 70px;
+    width: 85px;
     height: 30px;
     border-radius: 10px;
     padding: 5px 10px;

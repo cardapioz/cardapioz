@@ -1,12 +1,12 @@
+{% load cardapioz_extras %}
 {% for produto in produtos %}
     <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
-
-            <div class="z-depth-2 card-product">
-                <div title="Avaliação do produto é {{ produto.pk }} estrelas" class="avaliacao">
-                    {{ produto.pk }}
-                    <i class="material-icons right">star</i>
+            <div class="z-depth-1 card-product">
+                <div title="Avaliação do produto é {{ produto.pk|rating_product|floatformat:1 }} estrelas" class="avaliacao">
+                    {{ produto.pk|rating_product|floatformat:1 }}
+                    <i class="material-icons right yellow-text">star</i>
                 </div>
-                <img class="border-8px" width="200px" height="200px" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk }}">
+                <img class="border-8px img-produto" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk }}">
                 <div class="card-area">
                     <h6 class="price right green-text">
                         R${{ produto.price }}<br>

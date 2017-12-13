@@ -1,4 +1,5 @@
 from django import template
+from star_ratings.models import Rating
 
 register = template.Library()
 
@@ -13,3 +14,12 @@ def color(a):
 
     elif a == 3:
         return 'green'
+
+
+@register.filter
+def rating_product(pk):
+    try:
+        star = Rating.objects.get(object_id=pk)
+        return star.average
+    except Exception as e:
+        return 0

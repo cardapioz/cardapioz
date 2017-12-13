@@ -32,7 +32,9 @@
                         </div>
                         </a>
                     {% empty %}
-                        {% include 'core/components/not-found-cheff.html' with title='Não há nenhum prato preparado nesta categoria.' text='Crie um alerta e seja avisado quando houver algum prato preparado.' def='' %}
+                        <div class="container">
+                            {% include 'core/components/not-found-cheff.html' with title='Não há nenhum prato preparado nesta categoria.' text='Crie um alerta e seja avisado quando houver algum prato preparado.' def='' %}
+                        </div>
                     {% endfor %}
                 </div>
             </div>

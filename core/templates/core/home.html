@@ -25,16 +25,16 @@
     <div class="row">
         <div class="container">
             <h5 class="light link">Adicionados recentemente </h5>
-            <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-                {% include 'core/components/card-product.html' with produtos=produtos %}
+            <div class="main-carousel js-flickity" id="carrousel" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
+                {% include 'core/components/card-product.html' with produtos=produtos.lasted %}
             </div>
             <h5 class="light link">Mais Pedidos </h5>
-            <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-                {% include 'core/components/card-product.html' with produtos=produtos %}
+            <div class="main-carousel js-flickity" id="carrousel" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
+                {% include 'core/components/card-product.html' with produtos=produtos.lasted %}
             </div>
             <h5 class="light link">Mais bem avaliados</h5>
-            <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-                {% include 'core/components/card-product.html' with produtos=produtos %}
+            <div class="main-carousel js-flickity" id="carrousel" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
+                {% include 'core/components/card-product.html' with produtos=produtos.highest_rating %}
             </div>
         </div>
     </div>

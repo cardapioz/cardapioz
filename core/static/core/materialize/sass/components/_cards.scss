@@ -12,6 +12,10 @@
 .border-8px{
   border-radius: 8px;
 }
+.img-produto{
+    width: 200px;
+    height: 200px;
+  }
 
 .card-product{
   background: white;
@@ -23,7 +27,7 @@
 
   .avaliacao{
     position: absolute;
-    width: 70px;
+    width: 85px;
     height: 30px;
     border-radius: 10px;
     padding: 5px 10px;
@@ -35,7 +39,6 @@
     font-weight: 500;
     font-size: 13pt !important;
   }
-
   .card-area{
     height: 35px;
     width: 100%;

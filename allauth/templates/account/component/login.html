@@ -1,0 +1,47 @@
+
+{% load staticfiles %}
+{% load i18n %}
+{% load account socialaccount %}
+
+
+
+<div class="container Aligner" style="height: 700px">
+
+    <div class="row z-depth-2 white" >
+        <div class="center-align">
+            <div class="center-align Aligner" style="background: url({% static 'core/img/food-pizza-restaurant-eating.jpg' %} )no-repeat center/cover; height: 300px; width: 100% !important;" >
+                <div class="container">
+                    <h5 class="white-text uppercase">ENTRE COM:</h5>
+                    <div class="container center-align Aligner" style="height: 100px;">
+                        <a  href="/accounts/facebook/login/?process=login" class="btn btn-large indigo waves-effect waves-light darken-1">facebook</a><br>
+                    </div>
+                    <div class="login-or white-text"><h5>{% trans 'or' %} <a href="{% url 'account_signup' %}">{% trans 'Signup' %}</a></h5></div>
+                </div>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <form method="POST" action="{% url 'account_login' %}" class="login col s12" style="padding: 20px; text-align: center">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="email" name="login" type="email" class="validate">
+                    <label for="icon_prefix">E-mail</label>
+                </div>
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">security</i>
+                    <input id="icon_telephone" type="password" name="password" class="validate">
+                    <label for="icon_telephone">Senha</label>
+                </div>
+                {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="align-center btn waves-effect waves-light red darken-3" type="submit">entrar</button>
+
+                <a class="col s12 button secondaryAction" style="top: 20px; position: relative;" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+
+            </div>
+        </form>
+
+    </div>
+</div>

@@ -1,15 +1,14 @@
 $('.button-collapse').sideNav({
-        menuWidth: 300,
-        edge: 'left',
-        closeOnClick: true,
-        draggable: true,
-        time: 500
-    }
+    menuWidth: 300,
+    edge: 'left',
+    closeOnClick: true,
+    draggable: true,
+    time: 500
+}
 );
 
 
 $('.carousel.carousel-slider').carousel({fullWidth: true});
-
 
 $(document).ready(function(){
     $('.modal').modal();
@@ -17,47 +16,37 @@ $(document).ready(function(){
 
 });
 
-
-function logout() {
-    $.ajax({
-        type: 'POST',
-        url: '/accounts/logout/',
-        data:{
-            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-        },success:function () {
-            window.location.href = '/';
-        }
-    })
-}
-
 $('#post').click(function () {
+    var comment = $('input[name=comment_text]').val();
+    if(comment !== ''){
+        var user_name = $('#user-name').text();
+        var user_photo = $('#user-photo').attr('src');
+        var date = 'Agora';
         $.ajax({
             type: 'POST',
             url: '/comment/',
             data:{
-                comment_text: $('input[name=comment_text]').val(),
+                comment_text: comment,
                 product: $('input[name=product]').val(),
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             }, success:function (data) {
+
+                $('.collection').prepend('
+                <li class="collection-item avatar green lighten-5"><img alt="" class="circle"' +
+                'src="'+ user_photo +'">'+
+                '<span class="title">'+ user_name +'</span><p class="">'+ comment +'</p>'+
+                '<span class="secondary-content grey-text text-lighten-1">'+
+                date +'</span>'+
+                '</li>')
+
+                $('input[name=comment_text]').val('');
                 Materialize.toast(data, 3000, 'rounded')
             },error:function (data) {
                 Materialize.toast('Ops, ocorreu um erro ao tentar cadastrar comentario', 3000, 'rounded')
 
             }
         })
+    }else{
+         $('#modal1').modal('open');
     }
-);
-
-
-$('input.autocomplete').autocomplete({
-    data: {
-        "Apple": null,
-        "Microsoft": null,
-        "Google": 'https://placehold.it/250x250'
-    },
-    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-    onAutocomplete: function(val) {
-        // Callback function when value is autcompleted.
-    },
-    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
 });

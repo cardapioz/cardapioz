@@ -1,6 +1,9 @@
 {% extends 'core/base.html' %}{% load staticfiles %}{% load cardapioz_extras %}
 
 {% block content %}
+    {% load ratings %}
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
     <div class="container" style="height: auto; min-height: 100vh;">
         <div class="row">
             <div class="col s12 m7 l7">
@@ -77,7 +80,9 @@
                             <div class="white collapsible-body">
                                 <div class="row">
                                     <div class="col s12">
-                                        Avalie este pedido
+
+                                        <p>  Avalie este produto</p>
+                                        {% ratings order_delivered.product %}
                                     </div>
                                 </div>
                             </div>

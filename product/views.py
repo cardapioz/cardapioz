@@ -62,12 +62,16 @@ class AddCommentView(View):
 class KitchensView(ListView):
     model = Category
     template_name = 'core/kitchens.html'
+    template_name_suffix = 'Cozinhas'
+    paginate_by = 12
+    ordering = 'slug'
 
-    def get_context_data(self, **kwargs):
+    '''def get_context_data(self, **kwargs):
         context = super(KitchensView, self).get_context_data(**kwargs)
         context['category_list'] = context['category_list'].order_by('slug')
         context['title'] = 'cozinha'
         return context
+    '''
 
 
 class CreateProduct(LoginRequiredMixin, FormView):

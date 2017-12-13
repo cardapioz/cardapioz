@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'localflavor',
     'channels',
     'django_private_chat',
+    'star_ratings',
 ]
 
 USE_MODELTRANSLATION = True
@@ -191,3 +192,11 @@ MEDIA_URL = '/imagens/'
 
 
 MEDIA_ROOT = os.path.join(os.path.dirname(PROJECT_ROOT), 'media_cdn')
+
+
+# STAR RATING
+
+STAR_RATINGS_STAR_HEIGHT = 25
+STAR_RATINGS_STAR_WIDTH = 25
+STAR_RATINGS_ANONYMOUS = False
+STAR_RATINGS_STAR_SPRITE = '/imagens/img/star-rating.png'

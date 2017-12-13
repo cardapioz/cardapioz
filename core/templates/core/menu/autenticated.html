@@ -5,10 +5,10 @@
             <img src="{% static 'core/img/cover-cardapioz.png' %}">
         </div>
         <a href="">
-            <img class="circle" src="{% if user.profile.photo.url != '/imagens/img/user.svg' and not user.socialaccount_set.all.0.get_avatar_url %}{{ user.profile.photo.url  }}{% elif user.socialaccount_set.all.0.get_avatar_url %}{{ user.socialaccount_set.all.0.get_avatar_url }}{% endif %}">
+            <img id="user-photo" class="circle" src="{% if user.profile.photo.url != '/imagens/img/user.svg' and not user.socialaccount_set.all.0.get_avatar_url %}{{ user.profile.photo.url  }}{% elif user.socialaccount_set.all.0.get_avatar_url %}{{ user.socialaccount_set.all.0.get_avatar_url }}{% endif %}">
         </a>
         <a href="">
-            <span class="white-text name">{{ user.get_full_name|capfirst }}</span>
+            <span id="user-name" class="white-text name">{{ user.get_full_name|capfirst }}</span>
         </a>
         <a href="">
             <span class="white-text email">{{ user.email }}</span>
@@ -22,4 +22,4 @@
 <li><a class="waves-effect" href="#">Third Link With Waves</a></li>
 <li><a class="waves-effect" href="#">Third Link With Waves</a></li>
 <li><a class="waves-effect" href="#">Third Link With Waves</a></li>
-<li><a onclick="logout()" class="waves-effect" href="#">Sair</a></li>
+<li><a class="waves-effect" href="{% url 'account_logout' %}">Sair</a></li>

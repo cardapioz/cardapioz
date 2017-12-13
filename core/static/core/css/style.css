@@ -45,7 +45,10 @@
 
 .flickity-viewport{
     padding-left: 30px !important;
-    height: 290px !important;
+    height: 200px !important;
+}
+#carrousel .flickity-viewport{
+    height: 298px!important;
 }
 .carousel-cell {
     width: auto;

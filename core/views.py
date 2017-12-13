@@ -1,15 +1,18 @@
 # Class Based Views import's
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+
 from product.models import Produto, Category
-from allauth.account.views import logout
 
 
 class HomeView(View):
     template = 'core/home.html'
 
-    def get(self, request, *args, **kwargs):
-        produtos = Produto.objects.all().order_by('-data_published')
+    def get(self, request):
+        produtos = Produto.objects.all()
+        produtos = {'lasted': produtos.order_by('-data_published'),
+                    'highest_rating': produtos.order_by('-ratings__average')}
+
         categorias = Category.objects.all().order_by('-data_create')[:6]
-        return render(request, self.template, {'produtos': produtos, 'categorias': categorias})
+        return render(request, self.template, {'title': 'Experiencia', 'produtos': produtos, 'categorias': categorias})
 
