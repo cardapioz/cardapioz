@@ -7,3 +7,6 @@
 /whatever/*
 CACHE/
 __pycache__/
+.config/*
+.config/fish
+./local/*
