@@ -1,7 +1,7 @@
 {% load cardapioz_extras %}
 {% for produto in produtos %}
     <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
-            <div class="z-depth-1 card-product">
+            <div class="z-depth-1 card-product" style="display: inline-block;">
                 <div title="Avaliação do produto é {{ produto.pk|rating_product|floatformat:1 }} estrelas" class="avaliacao">
                     {{ produto.pk|rating_product|floatformat:1 }}
                     <i class="material-icons right yellow-text">star</i>

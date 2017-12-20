@@ -69,19 +69,19 @@
                 </ul>
 
                 {% include 'core/components/comments.html' %}
-            <div class="col s12 l6 m12">
-                {% if relateds %}
-                    <a href="{% url 'category' slug=produto.category_product.slug  %}">
-                        <h5 class="light">Ver mais relacionados</h5>
-                    </a>
-                {% endif %}
-                {% for related in relateds %}
-                    {% include 'core/components/card-product.html' with produtos=relateds %}
-                {% empty %}
-                    {% include 'core/components/not-found-cheff.html' with title='Não há produtos relacionados' text='Crie um alerta e seja avisado quando houver algum prato preparado.' %}
+                <div class="col s12 l6 m12" style="text-align: center;">
+                    {% if relateds %}
+                        <a  class="light link" href="{% url 'category' slug=produto.category_product.slug  %}">
+                            <h5 class="light link">Ver mais relacionados</h5>
+                        </a>
+                    {% endif %}
+                    {% for related in relateds %}
+                        {% include 'core/components/card-product.html' with produtos=relateds %}
+                    {% empty %}
+                        {% include 'core/components/not-found-cheff.html' with title='Não há produtos relacionados' text='Crie um alerta e seja avisado quando houver algum prato preparado.' %}
+                    {% endfor %}
 
-                {% endfor %}
-
+                </div>
             </div>
         </div>
     </div>

@@ -1,21 +1,49 @@
 {% extends "core/base.html" %}
-
 {% load i18n %}
 
 {% block content %}
-    <div class="container">
-        <h1>{% trans "Sign Up" %}</h1>
 
-        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+    <div class="container Aligner" style="height: 700px">
 
-        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            {% if redirect_field_value %}
-                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
-            <button class="btn green waves-effect" type="submit">{% trans "Sign Up" %} &raquo;</button>
-        </form>
+        <div class="row z-depth-2 white">
+            <div class="center-align">
+                <h5 class="light link">{% trans "Sign Up" %}</h5>
+                <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+            </div>
+
+            <form method="POST" action="{% url 'account_signup' %}" class="login col s12" style="padding: 20px; text-align: center">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                            <label for="email">E-mail</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">security</i>
+                            {{ form.password1 }}
+                            {{ form.password1.errors }}
+                            <label for="password">Senha</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">security</i>
+                            {{ form.password2 }}
+                            {{ form.password2.errors }}
+                            <label for="password2">Senha (novamente)</label>
+                        </div>
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <button class="align-center btn waves-effect waves-light red darken-3" type="submit">signup</button>
+
+                        <a class="col s12 button secondaryAction" style="top: 20px; position: relative;" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                    </div>
+                    </div>
+            </form>
+
+        </div>
     </div>
 
 {% endblock %}

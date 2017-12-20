@@ -5,7 +5,7 @@
 {% for provider in socialaccount_providers %}
 {% if provider.id == "openid" %}
 {% for brand in provider.get_brands %}
-<li class="btn btn-large indigo waves-effect waves-light darken-1">
+<li>
   <a title="{{brand.name}}"
      class="socialaccount_provider {{provider.id}} {{brand.id}}"
      href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
@@ -13,8 +13,8 @@
 </li>
 {% endfor %}
 {% endif %}
-<li>
-  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
+<li class="ul-social">
+  <a title="{{provider.name}}" class="socialaccount_provider {{provider.id}} btn waves-effect waves-light"
      href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
 </li>
 {% endfor %}

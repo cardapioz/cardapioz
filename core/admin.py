@@ -30,6 +30,7 @@ class StoreUser(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (PerfilEdit, AddressUser, StoreUser)
 
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(AbsPerm)

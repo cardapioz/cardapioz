@@ -146,7 +146,7 @@ button.btn-floating {
 .fixed-action-btn {
   &.active {
     ul {
-     visibility: visible;
+      visibility: visible;
     }
   }
 
@@ -289,3 +289,10 @@ button.btn-floating {
 .btn-block {
   display: block;
 }
+.facebook{
+  background: #3b5998 !important;
+}
+.google{
+  background: #c31c1c !important;
+}
+

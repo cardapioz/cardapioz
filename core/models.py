@@ -18,11 +18,18 @@ class AbsPerm(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
-    age = models.IntegerField(default=0)
-    photo = ResizedImageField(size=[160, 160], quality=75, upload_to='user/profile', verbose_name='imagem', default='/imagens/img/user.svg')
-    phone = models.CharField(max_length=11)
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE, verbose_name='usuario')
+    photo = ResizedImageField(size=[160, 160], quality=75, upload_to='user/profile', default='/imagens/img/user.svg',
+                              blank=True, verbose_name='imagem',)
+    phone = models.CharField(max_length=11, blank=True)
     sexo = models.BooleanField(choices=sexo, default=0)
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+    class Meta:
+        verbose_name = 'Perfil'
+        verbose_name_plural = 'Perfis'
 
 
 class Address(models.Model):
@@ -38,7 +45,7 @@ class Address(models.Model):
 
 
 class Store(models.Model):
-    owner = models.OneToOneField(User, related_name='store')
-    name = models.CharField(max_length=60)
-    photo = ResizedImageField(size=[400, 400], default='/imagens/img/user.svg')
-    adm = models.CharField(max_length=200, default=owner)
+    owner = models.OneToOneField(User, related_name='store', blank=True)
+    name = models.CharField(max_length=60, blank=True)
+    photo = ResizedImageField(size=[400, 400], default='/imagens/img/user.svg', blank=True)
+    adm = models.CharField(max_length=200, default=owner, blank=True)

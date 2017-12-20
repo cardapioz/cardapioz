@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.google',
     'rest_framework',
     'django_resized',
     'compressor',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'channels',
     'django_private_chat',
     'star_ratings',
+    'corsheaders',
 ]
 
 USE_MODELTRANSLATION = True
@@ -68,16 +70,24 @@ CHANNEL_LAYERS = {
     }
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+#CORS_ORIGIN_WHITELIST = ('localhost:3000')
 
 GOOGLE_API_KEY = 'AIzaSyAbOrPSvMuf7MvikKRbGBm9i7LUoMCFzns'
 SITE_ID = 1
+
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = False
+ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+DEFAULT_FROM_EMAIL = 'maurx.dev@gmail.com'
+DEFAULT_EMAIL = 'maurx.dev@gmail.com'
 
 COMPRESS_OFFLINE = False
 HTML_MINIFY = True
 
-LOGIN_URL = 'accounts_login'
+LOGIN_URL = 'account_login'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -87,6 +97,7 @@ STATICFILES_FINDERS = (
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,6 +132,7 @@ AUTHENTICATION_BACKENDS = (
 
     # `allauth` specific authentication methods, such as login by e-mail
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 
 )
 

@@ -152,3 +152,18 @@ nav .button-express {
 .breadcrumb:before{
     color: #000;
 }
+
+.comment-date{
+    top: -70px;
+    position: relative;
+}
+.ul-social{
+    width: 100%;
+    height: 40px;
+}
+.socialaccount_provider{
+    width: 200px;
+}
+.link{
+    color: black !important;
+}

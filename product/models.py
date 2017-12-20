@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
@@ -126,7 +127,7 @@ class Order(AbsPerm, models.Model):
 
 class Comment(AbsPerm, models.Model):
     product = models.ForeignKey('Produto', related_name='product_comment', verbose_name='Produto')
-    user = models.ForeignKey('auth.User', related_name='usuario', verbose_name='Usuario')
+    user = models.ForeignKey(User, related_name='usuario', verbose_name='Usuario')
     comment_text = models.TextField(_('Cometário'), max_length=144)
 
     class Meta:

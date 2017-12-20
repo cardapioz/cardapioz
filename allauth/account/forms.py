@@ -175,6 +175,8 @@ class LoginForm(forms.Form):
         ret = perform_login(request, self.user,
                             email_verification=app_settings.EMAIL_VERIFICATION,
                             redirect_url=redirect_url)
+
+
         remember = app_settings.SESSION_REMEMBER
         if remember is None:
             remember = self.cleaned_data['remember']
