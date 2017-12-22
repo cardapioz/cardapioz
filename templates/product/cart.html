@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+    <div class="container" style="padding: 30px 0;">
+
+
+        <table class="white z-depth-1 bordered highlight">
+            <thead>
+            <tr>
+                <th>Quantidade</th>
+                <th>Produto</th>
+                <th>Valor</th>
+                <th>Remover</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for order in list_cart.orders.all %}
+                <tr>
+                    <td>{{ order.amount }}</td>
+                    <td>{{ order.product.title }}</td>
+                    <td>{{ order.value }}</td>
+                    <td><i class="material-icons">remove_shopping_cart</i></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="row">
+            <div class="col s12">
+                <p></p>
+                <button class="btn btn-large waves-effect green">concluir pedido</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

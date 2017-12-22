@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<div id="comment-grid"></div>
+<h5 class="light comments_count">Comentários ({{ comments_total }})</h5>
+<div id="collection">
+</div>
+{% if user.is_authenticated %}
+    <form id="form" class="col s12">{% csrf_token %}
+        <div class="row">
+            <div class="input-field col s10 m10 l10">
+                <img class="circle prefix" style="width: 30px; height: 30px;" src="{% firstof  user.socialaccount_set.all.0.get_avatar_url user.profile.photo.url '/imagens/img/user.svg' %}" alt="Avatar usuário" />
+                <input id="icon_prefix"  name="comment_text" placeholder="Deixe seu comentário..." class="validate" maxlength="144" data-length="144" type="text">
+                <label for="icon_prefix">{{ user.get_full_name|capfirst }}</label>
+            </div>
+            <input style="display: none;" name="product" type="text" value="{{ produto.pk }}" title="produto">
+            <div class=" col s2 m2 l2" style="height: 75px; padding: 20px 5px;">
+                <button style="width: 100%;" id="post" class="Aligner btn waves-effect red darken-3 waves-light" type="button">
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </form>
+{% else %}
+    <div class="col s12">
+        <p>Faça login para adicionar um comentario</p>
+        <form action="{% url 'account_login' %}">
+            <label>
+                <input type="text" name="next" value="{{ request.path|safe }}" class="hide">
+            </label>
+            <button type="submit" class="btn green darken-1 waves-effect">fazer login</button>
+        </form>
+    </div>
+{% endif %}
+
+
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Oops!</h4>
+        <p>Escreva algum comentario, e envie novamente!</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Entendido</a>
+    </div>
+</div>
+
+
+
+<script src="{% static 'core/react/build/react.js' %}"></script>
+<script src="{% static 'core/react/build/react-dom.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<script type="text/babel" src="{% static 'core/react/comment.js' %}"></script>

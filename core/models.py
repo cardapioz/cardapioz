@@ -43,6 +43,9 @@ class Address(models.Model):
     def full_address(self):
         return f'{self.address}, {self.number} - {self.city}'
 
+    def __str__(self):
+        return self.full_address()
+
 
 class Store(models.Model):
     owner = models.OneToOneField(User, related_name='store', blank=True)

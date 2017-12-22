@@ -2,17 +2,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.views import View
 from django.views.generic import TemplateView, DetailView, ListView, FormView
-from rest_framework import status
+from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from product.serializer import CommentSerializer
+from product.serializer import CommentSerializer , OrderSerializer
 from .forms import CommentForm, ProductForm
-from .models import Produto, Order, Comment, Category
+from .models import Produto , Order , Comment , Category , Cart
 
 
 class OrderPageView(LoginRequiredMixin, TemplateView):
-    template_name = 'core/orders.html'
+    template_name = 'product/orders.html'
 
     def get_context_data(self, **kwargs):
         context = super(OrderPageView, self).get_context_data(**kwargs)
@@ -23,7 +23,7 @@ class OrderPageView(LoginRequiredMixin, TemplateView):
 
 class CategoryView(DetailView):
     model = Category
-    template_name = 'core/category.html'
+    template_name = 'product/category.html'
 
     def get_context_data(self, **kwargs):
         context = super(CategoryView, self).get_context_data(**kwargs)
@@ -33,7 +33,7 @@ class CategoryView(DetailView):
 
 class ProductView(DetailView):
     model = Produto
-    template_name = 'core/product-view.html'
+    template_name = 'product/product-view.html'
 
     def get_context_data(self, **kwargs):
         context = super(ProductView, self).get_context_data(**kwargs)
@@ -48,7 +48,7 @@ class ProductView(DetailView):
 
 class ProductList(LoginRequiredMixin, ListView):
     model = Produto
-    template_name = 'core/product-list.html'
+    template_name = 'product/product-list.html'
 
     def get_context_data(self, **kwargs):
         context = super(ProductList, self).get_context_data(**kwargs)
@@ -73,22 +73,15 @@ class AddCommentView(View):
 
 class KitchensView(ListView):
     model = Category
-    template_name = 'core/kitchens.html'
+    template_name = 'product/kitchens.html'
     template_name_suffix = 'Cozinhas'
     paginate_by = 12
     ordering = 'slug'
 
-    '''def get_context_data(self, **kwargs):
-        context = super(KitchensView, self).get_context_data(**kwargs)
-        context['category_list'] = context['category_list'].order_by('slug')
-        context['title'] = 'cozinha'
-        return context
-    '''
-
 
 class CreateProduct(LoginRequiredMixin, FormView):
     form_class = ProductForm
-    template_name = 'core/create-product.html'
+    template_name = 'product/create-product.html'
     success_url = '../'
 
     def form_valid(self, form):
@@ -108,3 +101,33 @@ class CommentApi(APIView):
 
     def post(self):
         return Response(status=status.HTTP_200_OK)
+
+
+class OrderView(APIView):
+    serializer_class = OrderSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        serializer = self.serializer_class(Order.objects.all(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class CartView(LoginRequiredMixin, ListView):
+    model = Cart
+    template_name = 'product/cart.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CartView, self).get_context_data(**kwargs)
+        context['list_cart'] = self.model.objects.filter(user=self.request.user).exclude(status=1).last()
+        return context
+
+

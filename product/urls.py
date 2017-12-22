@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^cozinhas/$', views.KitchensView.as_view(), name='cozinhas'),
     url(r'^cozinha/(?P<slug>[A-z]+)/$', views.CategoryView.as_view(), name='category'),
     url(r'^(?P<title>[-\w]+)/(?P<pk>[0-9]+)/$', views.ProductView.as_view(), name='product-view'),
+    url(r'^pedir/$', views.OrderView.as_view(), name='pedir'),
+    url(r'^carrinho/', views.CartView.as_view(), name='cart'),
 ]

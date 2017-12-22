@@ -9,7 +9,7 @@ from django_resized import ResizedImageField
 from star_ratings.models import Rating
 
 from core.choices import payment_methods, status_order
-from core.models import AbsPerm
+from core.models import AbsPerm, Address
 
 # Create your models here.
 
@@ -59,6 +59,14 @@ class Category(AbsPerm, models.Model):
         super(Category, self).save(*args, **kwargs)
 
 
+class Coupon(models.Model):
+    code = models.CharField(_('Código'), max_length=30, unique=True, blank=True,)
+
+    class Meta:
+        verbose_name = 'Cupom'
+        verbose_name_plural = 'Cupons'
+
+
 class Produto(AbsPerm, models.Model):
     owner = models.ForeignKey('auth.User', related_name='owner', verbose_name='Criador')
     title = models.CharField(_('Titulo'), default='', max_length=30, blank=False, null=False)
@@ -99,15 +107,16 @@ class Produto(AbsPerm, models.Model):
 
 
 class Order(AbsPerm, models.Model):
-    product = models.ForeignKey('Produto', related_name='produto', verbose_name='Produto')
-    client = models.ForeignKey('auth.User', related_name='cliente', verbose_name='Cliente')
-    amount = models.IntegerField(default=1, verbose_name='Quantidade')
-    value = models.IntegerField(default=0, verbose_name='Preço')
-    payment = models.IntegerField(choices=payment_methods, default=0, verbose_name='Forma de pagamento')
-    status = models.IntegerField(choices=status_order, default=0, verbose_name='Andamento')
-    delivered = models.BooleanField(default=0, verbose_name='Status entrega')
-
-    must_orders = GenericRelation(Produto, related_query_name='must_orders')
+    product = models.ForeignKey('Produto', related_name='produto', verbose_name='produto', blank=False)
+    deliver_on = models.ForeignKey('core.Address', related_name='endereco', verbose_name='entregar em', blank=False)
+    client = models.ForeignKey('auth.User', related_name='cliente', verbose_name='cliente', blank=False)
+    amount = models.IntegerField(default=1, verbose_name='quantidade', blank=False, null=False)
+    note = models.TextField(max_length=500, verbose_name='observação', blank=True, null=True)
+    value = models.IntegerField(default=0, verbose_name='valor', blank=True)
+    payment = models.IntegerField(choices=payment_methods, default=0, verbose_name='forma de pagamento')
+    status = models.IntegerField(choices=status_order, default=0, verbose_name='andamento')
+    delivered = models.BooleanField(default=0, verbose_name='entregue', blank=True)
+    must_orders = GenericRelation(Produto, related_query_name='must_orders', blank=True)
 
     class Meta:
         verbose_name = 'Pedido'
@@ -116,8 +125,11 @@ class Order(AbsPerm, models.Model):
     def get_status(self):
         return status_order[self.status][1]
 
+    def get_info(self):
+        return f'Quantidade: {self.amount}, Produto: {self.product.title} R${self.value}'
+
     def __str__(self):
-        return 'Pedido de: {} Item: {}'.format(self.client.get_full_name(), self.product.title)
+        return f'Pedido de: {self.client.get_full_name()} Item: {self.product.title}'
 
     def save(self, **kwargs):
         super(Order, self).save()
@@ -126,9 +138,9 @@ class Order(AbsPerm, models.Model):
 
 
 class Comment(AbsPerm, models.Model):
-    product = models.ForeignKey('Produto', related_name='product_comment', verbose_name='Produto')
-    user = models.ForeignKey(User, related_name='usuario', verbose_name='Usuario')
-    comment_text = models.TextField(_('Cometário'), max_length=144)
+    product = models.ForeignKey('Produto', related_name='product_comment', verbose_name='produto')
+    user = models.ForeignKey(User, related_name='usuario', verbose_name='usuario')
+    comment_text = models.TextField(_('cometário'), max_length=144)
 
     class Meta:
         verbose_name = _('Cometário')
@@ -137,3 +149,16 @@ class Comment(AbsPerm, models.Model):
     def __str__(self):
         return f'{self.comment_text[0:30]}...'
 
+
+class Cart(AbsPerm, models.Model):
+    orders = models.ManyToManyField('Order', related_name='pedido', verbose_name='pedidos')
+    user = models.ForeignKey(User, related_name='usuario_pedido', verbose_name='comprador')
+    status = models.BooleanField(default=0, choices=((0, 'Na espera'), (1, 'Finalizado')))
+    value_cart = models.FloatField(default=0, verbose_name='valor do carrinho')
+
+    class Meta:
+        verbose_name = _('carrinho')
+        verbose_name_plural = _('carrinhos')
+
+    def __str__(self):
+        return f'Carrinho de compras de {self.user.get_full_name()} com: {self.orders.count()} produtos'

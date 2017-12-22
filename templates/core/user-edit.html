@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+    <div class="container" style="margin-top: 20px;">
+        <div class="container">
+            <div class="card row white z-depth-3" style="padding: 30px;">
+                <form method="post"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="file-field input-field col s6">
+                        <div class="btn">
+                            <span>Subir foto</span>
+                            {{ form.user_photo }}
+                            {{ form.user_photo.errors }}
+                        </div>
+                        <div class="file-path-wrapper">
+                            <label>
+                                <input class="file-path validate" type="text">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-field col s3">
+                        {{ form.first_name }}
+                        {{ form.first_name.errors }}
+                        <label for="first_name">Nome</label>
+                    </div>
+                    <div class="input-field col s3">
+                        {{ form.last_name }}
+                        {{ form.last_name.errors }}
+                        <label for="last_name">Sobrenome</label>
+                    </div>
+                    {{ form.cnpj }}
+                    {{ form.cnpj.errors }}
+
+
+
+                    <button class="btn btn-large green waves-effect">salvar perfil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

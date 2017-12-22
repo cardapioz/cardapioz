@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}{% load static %}
+{% block content %}
+    <div class="content">
+        <div class="categoria-image" style="background: url({{ category.category_photo.url }}) center / cover;  ">
+
+        </div>
+        <div style="background-color: #fafafa; z-index: 1; border-top: 2px solid rgba(195,28,28, .5);">
+            <div class="container" style=" position: relative; top: -30px;">
+                <nav class="z-depth-2">
+                    <div class="container black-text">
+                        <div class="nav-wrapper black-text">
+                            <div class="col s12">
+                                <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
+                                <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="row center-align">
+                    {% include 'components/card-product.html' with product=produtos %}
+                    {% if not produtos %}
+                        <div class="container">
+                            {% include 'components/not-found-cheff.html' with title='Não há nenhum prato preparado nesta categoria.' text='Crie um alerta e seja avisado quando houver algum prato preparado.' def='' %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

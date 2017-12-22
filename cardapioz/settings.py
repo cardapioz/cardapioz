@@ -58,8 +58,6 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-USE_MODELTRANSLATION = True
-
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'asgi_redis.RedisChannelLayer',
@@ -114,7 +112,7 @@ ROOT_URLCONF = 'cardapioz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -177,20 +175,18 @@ COMPRESS_ENABLED = True
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'pt-BR'
+LANGUAGE_CODE = 'pt_BR'
 
 TIME_ZONE = 'America/Sao_Paulo'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
+
+USE_MODELTRANSLATION = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-ACCOUNT_EMAIL_VERIFICATION = False
 LOGIN_REDIRECT_URL = '/'
 
 LOGIN_FIELD = 'email'
@@ -201,10 +197,10 @@ STATIC_ROOT = os.path.join(os.path.dirname(PROJECT_ROOT), 'staticfiles')
 STATIC_URL = '/static/'
 
 MEDIA_URL = '/imagens/'
-
-
 MEDIA_ROOT = os.path.join(os.path.dirname(PROJECT_ROOT), 'media_cdn')
 
+EMAIL_HOST = 'locahost'
+EMAIL_HOST_PORT = 1025
 
 # STAR RATING
 
