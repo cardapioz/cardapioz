@@ -10,8 +10,8 @@
                     <div class="container black-text">
                         <div class="nav-wrapper black-text">
                             <div class="col s12">
-                                <a href="{% url 'cozinhas' %}" class="black-text breadcrumb">Cozinhas</a>
-                                <a href="#!" class="black-text breadcrumb">{{ category.title|capfirst }}</a>
+                                <a href="{% url 'cozinhas' %}" class="black-text breadcrumb link">Cozinhas</a>
+                                <a href="{% url 'category' slug=category.slug %}" class="black-text breadcrumb link">{{ category.title|capfirst }}</a>
                             </div>
                         </div>
                     </div>

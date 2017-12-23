@@ -139,8 +139,7 @@ nav .button-express {
 .categoria-image{
     height: 250px;
     position: relative;
-    z-index: 0;
-    top: 0px;
+    top: 0;
     z-index: -1;
     webkit-filter: blur(1.5px);
     -moz-filter: blur(1.5px);
@@ -166,4 +165,7 @@ nav .button-express {
 }
 .link{
     color: black !important;
+}
+.link:hover{
+    color: #c31c1c !important;
 }

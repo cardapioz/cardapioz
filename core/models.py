@@ -33,12 +33,13 @@ class Profile(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, related_name='address')
+    user = models.ForeignKey(User, related_name='address', blank=True)
     city = models.CharField(max_length=200)
     state = models.CharField(max_length=20)
     address = models.CharField(max_length=40)
     number = models.CharField(max_length=10)
     postal_code = models.CharField(max_length=15)
+    complement = models.CharField(max_length=30)
 
     def full_address(self):
         return f'{self.address}, {self.number} - {self.city}'

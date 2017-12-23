@@ -1,36 +1,45 @@
 {% if is_paginated %}
-    <nav>
-        <ul class="pagination Aligner">
+    <style>
+        .height{
+            height: 55px !important;
+        }
+        .pagination li a{
+            padding: 0 15px !important;
+            line-height: inherit;
+        }
+    </style>
+    <nav class="Aligner">
+        <ul class="pagination">
             {% if page_obj.has_previous %}
-                <li>
+                <li class="height">
                     <a href="?page={{ page_obj.previous_page_number }}">
-                        <i class="material-icons" style="height: 30px; line-height: 30px;">chevron_left</i>
+                        <i class="material-icons" style="">chevron_left</i>
                     </a>
                 </li>
             {% else %}
-                <li class="disabled">
-                    <a href="#">
-                        <i class="material-icons" style="height: 30px; line-height: 30px;">chevron_left</i>
+                <li class="disabled height" >
+                    <a class="height" href="#">
+                        <i class="material-icons">chevron_left</i>
                     </a>
                 </li>
             {% endif %}
 
             {% for page in paginator.page_range %}
-                <li {% if page == page_obj.number %}class="active"{% endif %}>
-                    <a href="?page={{ page }}"><span>{{ page }}</span></a>
+                <li {% if page == page_obj.number %}class="active height"{% endif %}>
+                    <a class="height" href="?page={{ page }}"><span>{{ page }}</span></a>
                 </li>
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <li>
-                    <a href="?page={{ page_obj.next_page_number }}">
-                        <i class="material-icons" style="height: 30px; line-height: 30px;">chevron_right</i>
+                <li class="height">
+                    <a class="height" href="?page={{ page_obj.next_page_number }}">
+                        <i class="material-icons">chevron_right</i>
                     </a>
                 </li>
             {% else %}
                 <li {% if not page_obj.has_next %}class="disabled"{% endif %}>
-                    <a href="#">
-                        <i class="material-icons" style="height: 30px; line-height: 30px;">chevron_right</i>
+                    <a class="height" href="#">
+                        <i class="material-icons">chevron_right</i>
                     </a>
                 </li>
             {% endif %}

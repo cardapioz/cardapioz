@@ -3,6 +3,124 @@
 {% block content %}
     <div class="row">
         <div class="container">
+
+            {% if not user.is_authenticate and user.address.count == 0  %}
+                <div id="endereco"></div>
+                <script src="{% static 'core/react/build/react.js' %}"></script>
+                <script src="{% static 'core/react/build/react-dom.js' %}"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+                <script type="text/babel">
+
+                    const Address = React.createClass({
+                        /**  getInitialState: function () {
+        return {
+            city: '',
+            state: '',
+            address: '',
+            number: '',
+            postal_code: '',
+        }
+    },
+                         **/
+                        componentWillMount() {
+                            // noinspection JSAnnotator
+                            //super(props);
+                            this.state = {
+
+                            };
+
+                            //this.handleInputChange = this.handleInputChange.bind(this);
+                        },
+                        /**
+                         componentDidMount() {
+        fetch('/address/', {
+            method: 'POST',
+            headers:{'content-type': 'application/json'},
+            body: data,
+        }).then(function (data) {
+            if (data.status === 201){
+                $('#modal1').modal('open');
+            }else{
+                console.log('pedido não realizado')
+            }
+        });
+    },**/
+
+                        handleInputChange(event) {
+                            const target = event.target;
+                            const value = target.value;
+                            const name = target.name;
+
+                            this.setState({
+                                [name]: value,
+                                user: {{ user.pk }}
+                            });
+
+                        },
+                        handleClick(){
+                            console.log(JSON.stringify(this.state));
+                            fetch('/address/', {
+                                method: 'POST',
+                                headers:{'content-type': 'application/json'},
+                                body: JSON.stringify(this.state),
+                            }).then(function (data) {
+                                console.log(data);
+                                if (data.status === 201){
+                                    alert('deu certo')
+                                }else{
+                                    alert('deu errado')
+                                }
+                            });
+                        },
+
+                        render: function () {
+                            return (
+
+                                    <div className="white z-depth-1 row">
+                                        <h5 className="light">Cadastre um endereço de entrega.</h5>
+                                        <div className="input-field col s12">
+                                            <div className="input-field col s4">
+                                                <input name="state" onChange={this.handleInputChange} type="text"
+                                                       className="validate"/>
+                                                <label htmlFor={'state'}>Estado</label>
+                                            </div>
+                                            <div className="input-field col s4">
+                                                <input onChange={this.handleInputChange} type="text" name="city" className="validate"/>
+                                                <label htmlFor={'city'}>Cidade</label>
+                                            </div>
+                                            <div className="input-field col s4">
+                                                <input onChange={this.handleInputChange} type="text" name="address" className="validate"/>
+                                                <label htmlFor={'address'}>Rua</label>
+                                            </div>
+                                            <div className="input-field col s4">
+                                                <input onChange={this.handleInputChange} type="number" name="number" className="validate"/>
+                                                <label htmlFor={"number"}>Número</label>
+                                            </div>
+
+                                            <div className="input-field col s4">
+                                                <input onChange={this.handleInputChange} type="text" name="postal_code" className="validate"/>
+                                                <label htmlFor={'cep'}>Cep</label>
+                                            </div>
+
+                                            <div className="input-field col s4">
+                                                <input onChange={this.handleInputChange} name="complement" type="text" className="validate"/>
+                                                <label htmlFor={'complement'}>Complemento</label>
+                                            </div>
+                                        </div>
+                                        <button onClick={this.handleClick} className="btn red darken-3">cadastrar</button>
+                                    </div>
+
+                            );
+                        }
+                    });
+
+                    ReactDOM.render(
+                            <Address />,
+                        document.getElementById('endereco')
+                    );
+                </script>
+            {% endif %}
+            <a href="{% url 'cozinhas' %}"><h5 class="light link">Mais categorias</h5></a>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
                 {% for categoria in categorias %}
                     <a href="{% url 'category' slug=categoria.slug %}">

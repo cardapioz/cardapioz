@@ -4,10 +4,7 @@
 {% load account socialaccount %}
 {% get_providers as socialaccount_providers %}
 
-
-
 <div class="container Aligner" style="height: 700px">
-
     <div class="row z-depth-2 white" >
         <div class="center-align">
             <div class="center-align Aligner" style="background: url({% static 'core/img/food-pizza-restaurant-eating.jpg' %} )no-repeat center/cover; height: 300px; width: 100% !important;" >
@@ -42,9 +39,7 @@
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
                 <button class="align-center btn btn-large waves-effect waves-light red darken-3" type="submit">entrar</button>
-
                 <a class="col s12 button secondaryAction" style="top: 20px; position: relative;" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-
             </div>
         </form>
 

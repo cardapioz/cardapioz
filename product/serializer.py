@@ -1,6 +1,6 @@
 from django.contrib.auth.models import AbstractUser, User
 from core.models import Profile , Address
-from product.models import Comment , Order
+from product.models import Comment , Order , Cart
 from rest_framework import serializers
 
 
@@ -23,6 +23,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class AddressSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Address
         depth = 0
@@ -34,5 +35,11 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         depth = 0
-
         fields = ['id', 'product', 'client', 'deliver_on', 'note', 'amount', 'payment']
+
+
+class CartSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cart
+        depth = 0
+        fields = ['id', 'orders', 'status']

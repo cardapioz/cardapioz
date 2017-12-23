@@ -2,35 +2,46 @@
 
 {% block content %}
     <div class="container" style="padding: 30px 0;">
-
-
-        <table class="white z-depth-1 bordered highlight">
-            <thead>
-            <tr>
-                <th>Quantidade</th>
-                <th>Produto</th>
-                <th>Valor</th>
-                <th>Remover</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {% for order in list_cart.orders.all %}
+        {% if list_cart.orders.count > 0 %}
+            <table class="white z-depth-1 bordered highlight">
+                <thead>
                 <tr>
-                    <td>{{ order.amount }}</td>
-                    <td>{{ order.product.title }}</td>
-                    <td>{{ order.value }}</td>
-                    <td><i class="material-icons">remove_shopping_cart</i></td>
+                    <th class="center-align">Quantidade</th>
+                    <th>Produto</th>
+                    <th>Valor</th>
+                    <th>Remover</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
 
-        <div class="row">
-            <div class="col s12">
-                <p></p>
-                <button class="btn btn-large waves-effect green">concluir pedido</button>
+                <tbody>
+                {% for order in list_cart.orders.all %}
+                    <tr>
+                        <td class="center-align">{{ order.amount }}</td>
+                        <td>{{ order.product.title }}</td>
+                        <td>{{ order.value }}</td>
+                        <td>
+                            <form action="{% url 'cart' %}" method="post">{% csrf_token %}
+                                <label>
+                                    <input name='order_id' type="hidden" disabled value="{{ order.pk }}">
+                                </label>
+                                <button class="btn red darken-3 waves-effect">
+                                    <i class="material-icons">remove_shopping_cart</i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col s12">
+                    <p></p>
+                    <button class="btn btn-large waves-effect green">concluir pedido</button>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <h5 class="light">Seu carrinho está vazio :(</h5>
+        {% endif %}
     </div>
 {% endblock %}

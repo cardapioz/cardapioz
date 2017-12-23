@@ -6,7 +6,7 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from product.serializer import CommentSerializer , OrderSerializer
+from product.serializer import CommentSerializer , OrderSerializer , CartSerializer , AddressSerializer
 from .forms import CommentForm, ProductForm
 from .models import Produto , Order , Comment , Category , Cart
 
@@ -16,7 +16,7 @@ class OrderPageView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OrderPageView, self).get_context_data(**kwargs)
-        context['orders'] = Order.objects.filter(client=self.request.user).exclude(delivered=1)
+        context['orders'] = Order.objects.filter(client=self.request.user).exclude(delivered=1).order_by('-data_published')
         context['orders_delivered'] = Order.objects.filter(client=self.request.user).exclude(delivered=0)
         return context
 
@@ -131,3 +131,44 @@ class CartView(LoginRequiredMixin, ListView):
         return context
 
 
+class CartApi(APIView):
+    serializer_class = CartSerializer
+
+    def get(self, request):
+        serializer = self.serializer_class(Cart.objects.filter(user=request.user), many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        order_id = request.data['order_id']
+        cart = Cart.objects.filter(user=request.user).exclude(status=1).last()
+        cart.orders.remove(order_id)
+        serializer = self.serializer_class(data=cart)
+
+        if serializer.is_valid():
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_406_NOT_ACCEPTABLE)
+
+    def put(self, request, pk):
+        serializer = self.serializer_class(Order.objects.get(pk=pk))
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def delete(self, request):
+        Response(status=status.HTTP_200_OK)
+
+
+class AddressView(APIView):
+    serializer_class = AddressSerializer
+    permission_classes = [permissions.IsAuthenticated,]
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.user = request.user
+        print(serializer.user)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            print(serializer.errors)
+            return Response(serializer.data, status=status.HTTP_406_NOT_ACCEPTABLE)
