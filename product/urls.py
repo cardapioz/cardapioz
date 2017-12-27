@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     url(r'^pedidos/$', views.OrderPageView.as_view(), name='pedidos'),
     url(r'^novo-produto/$', views.CreateProduct.as_view(), name='novo-produto'),
+    url(r'^editar-produto/(?P<pk>[0-9]+)/$', views.ProdutoEdit.as_view(), name='editar-produto'),
     url(r'^meus-produtos/$', views.ProductList.as_view(), name='meus-produtos'),
     url(r'^comment/$', views.AddCommentView.as_view(), name='add-comment'),
     url(r'^comments/(?P<pk>[0-9]+)/$', views.CommentApi.as_view(), name='get-comment'),

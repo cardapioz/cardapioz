@@ -100,6 +100,7 @@ class Produto(AbsPerm, models.Model):
 
         if self.data_create is None:
             self.data_create = timezone.now()
+        print(self.photo_medium)
 
         self.data_published = timezone.now()
 

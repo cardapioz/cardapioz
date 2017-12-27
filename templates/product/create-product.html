@@ -51,38 +51,26 @@
                         <label>Categoria</label>
                     </div>
 
-                     <div class="input-field col s12 l6 m6">
+                    <div class="input-field col s12 l6 m6">
                         <i class="material-icons prefix">view_list</i>
                         {{ form.sizes|capfirst }}
                         {{ form.sizes.errors }}
                         <label>Tamanhos</label>
                     </div>
-
+                    <div class="input-field col s12 l6 m6">
+                        <i class="material-icons prefix">timer</i>
+                        {{ form.preparation_time }}
+                        {{ form.preparation_time.errors }}
+                        <label for="preparation_time">Tempo de prepraro</label>
+                    </div>
                     <div class="input-field col s12">
                         <i class="material-icons prefix">message</i>
                         {{ form.description }}
                         {{ form.description.errors }}
                         <label>Descriçao do produto</label>
                     </div>
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">timer</i>
-                        {{ form.preparation_time }}
-                        {{ form.preparation_time.errors }}
-                        <label for="preparation_time">Tempo de prepraro</label>
-                    </div>
                 </div>
-                 <div class="row">
-                        <div class="col s12">
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">textsms</i>
-                                    <input type="text" id="autocomplete-input" class="autocomplete">
-                                    <label for="autocomplete-input">Autocomplete</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <button class="btn green btn-large waves-effect" type="submit">cadastrar produto</button>
+                <button class="btn green btn-large waves-effect" type="submit">salvar</button>
             </form>
         </div>
     </div>

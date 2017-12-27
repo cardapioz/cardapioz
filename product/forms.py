@@ -10,10 +10,11 @@ class ProductForm(forms.ModelForm):
 
         widgets = {
             'title': forms.TextInput(attrs={'id': 'icon_prefix', 'type': 'text', 'class': 'validate', 'data-length': 30}),
-            'photo_medium': forms.FileInput(attrs={'accept': 'image/x-png, image/jpeg'}),
+            'photo_medium': forms.ClearableFileInput(attrs={'accept': 'image/x-png, image/jpeg'}),
+            'photo_thumb': forms.ClearableFileInput(attrs={'accept': 'image/x-png, image/jpeg'}),
             'amount': forms.NumberInput(attrs={'id': 'amount', 'type': 'number', 'class': 'validate'}),
             'price': forms.NumberInput(attrs={'id': 'price', 'type': 'number', 'class': 'validate'}),
-            'description': forms.Textarea(attrs={'id': 'description', 'class': 'materialize-textarea', 'data-length': 300}),
+            'description': forms.Textarea(attrs={'class': 'materialize-textarea', 'data-length': 300}),
             'ingredients': forms.SelectMultiple(attrs={'id': 'description', 'value': '-1'}),
             'category_product': forms.Select(),
             'sizes': forms.SelectMultiple(),

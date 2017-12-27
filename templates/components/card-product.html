@@ -1,20 +1,31 @@
 {% load cardapioz_extras %}
 {% for produto in produtos %}
-    <a href="{% url 'product-view' title=produto.title|slugify pk=produto.pk %}">
-            <div class="z-depth-1 card-product" style="display: inline-block;">
-                <div title="Avaliação do produto é {{ produto.pk|rating_product|floatformat:1 }} estrelas" class="avaliacao">
-                    {{ produto.pk|rating_product|floatformat:1 }}
-                    <i class="material-icons right yellow-text">star</i>
-                </div>
-                <img class="border-8px img-produto" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk }}">
-                <div class="card-area">
-                    <h6 class="price right green-text">
-                        R${{ produto.price }}<br>
-                        un.
-                    </h6>
-                    <h5 class="truncate" title="{{ produto.title|capfirst }}">{{ produto.title|capfirst }}</h5>
-                    <a href="#{{ produto.owner.username }}"  title="Acesse o cardápio de {{ produto.owner.username }}" class="owner">por: {{ produto.owner.username }}</a>
-                </div>
+    <a href="{% if produto.owner != request.user %}
+             {% url 'product-view' title=produto.title|slugify pk=produto.pk %}
+             {% else %}
+             {% url 'editar-produto' pk=produto.pk %}
+             {% endif %}">
+        <div class="z-depth-1 card-product" style="display: inline-block;">
+            <div title="Avaliação do produto é {{ produto.pk|rating_product|floatformat:1 }} estrelas" class="avaliacao">
+                {{ produto.pk|rating_product|floatformat:1 }}
+                <i class="material-icons right yellow-text">star</i>
             </div>
+            <figure class="image-thumb">
+                {% if produto.owner == user %}
+                    <div class="display Aligner">
+                        <div class="edit Aligner"><i class="material-icons">edit</i></div>
+                    </div>
+                {% endif %}
+                <img class="border-8px img-produto" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk|rating_product|floatformat:1 }}">
+            </figure>
+            <div class="card-area">
+                <h6 class="price right green-text">
+                    R${{ produto.price|floatformat:2 }}<br>
+                    un.
+                </h6>
+                <h5 class="truncate left-align" title="{{ produto.title|capfirst }}">{{ produto.title|capfirst }}</h5>
+                <a href="#{{ produto.owner.username }}"  title="Acesse o cardápio de {{ produto.owner.username }}" class="owner">por: {{ produto.owner.username }}</a>
+            </div>
+        </div>
     </a>
 {% endfor %}

@@ -1,7 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.views import View
-from django.views.generic import TemplateView, DetailView, ListView, FormView
+from django.views.generic import TemplateView , DetailView , ListView , FormView , UpdateView
 from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -82,7 +84,7 @@ class KitchensView(ListView):
 class CreateProduct(LoginRequiredMixin, FormView):
     form_class = ProductForm
     template_name = 'product/create-product.html'
-    success_url = '../'
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -90,6 +92,26 @@ class CreateProduct(LoginRequiredMixin, FormView):
         obj.photo_thumb = self.request.FILES['photo_medium']
 
         return super(CreateProduct, self).form_valid(form.save())
+
+
+class ProdutoEdit(UpdateView):
+    model = Produto
+    form_class = ProductForm
+    template_name = 'product/create-product.html'
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        try:
+            obj.photo_thumb = self.request.FILES['photo_medium']
+        except Exception as e:
+            print(e)
+
+        return super(ProdutoEdit, self).form_valid(form.save())
+
+    def get_success_url(self):
+        get_produto = Produto.objects.get(pk=self.kwargs['pk'])
+
+        return reverse_lazy('product-view', kwargs={'title': slugify(get_produto.title), 'pk': get_produto.pk})
 
 
 class CommentApi(APIView):

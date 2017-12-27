@@ -169,3 +169,31 @@ nav .button-express {
 .link:hover{
     color: #c31c1c !important;
 }
+
+.display{
+    position: absolute;
+    background-color: rgba(0, 0, 0, .8);
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 8px 8px 0;
+}
+.image-thumb{
+    padding: 0; position:relative; margin: 0; width: 100%;
+}
+.image-thumb:hover .display{
+    opacity: 1;
+    -webkit-transition: .5s;
+    -moz-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+}
+
+.edit{
+    color: white;
+    width: 60px;
+    height:60px;
+    border-radius: 50%;
+    border: 2px solid white;
+    text-align: center;
+}
