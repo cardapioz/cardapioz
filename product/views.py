@@ -1,10 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse , HttpResponseForbidden
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import View
 from django.views.generic import TemplateView , DetailView , ListView , FormView , UpdateView
 from rest_framework import status, permissions
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -108,9 +110,14 @@ class ProdutoEdit(UpdateView):
 
         return super(ProdutoEdit, self).form_valid(form.save())
 
+    def dispatch(self, request, *args, **kwargs):
+        produto = self.get_object()
+        if produto.owner != self.request.user:
+            return redirect('meus-produtos')
+        return super(ProdutoEdit, self).dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         get_produto = Produto.objects.get(pk=self.kwargs['pk'])
-
         return reverse_lazy('product-view', kwargs={'title': slugify(get_produto.title), 'pk': get_produto.pk})
 
 
@@ -127,13 +134,14 @@ class CommentApi(APIView):
 
 class OrderView(APIView):
     serializer_class = OrderSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    #permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
         serializer = self.serializer_class(Order.objects.all(), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        print(request.user)
         serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():

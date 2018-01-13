@@ -17,11 +17,11 @@ $(document).ready(function(){
 });
 
 $('#post').click(function () {
-    var comment = $('input[name=comment_text]').val();
+    const comment = $('input[name=comment_text]').val();
     if(comment !== ''){
-        var user_name = $('#user-name').text();
-        var user_photo = $('#user-photo').attr('src');
-        var date = 'Agora';
+        let user_name = $('#user-name').text();
+        let user_photo = $('#user-photo').attr('src');
+        let date = 'Agora';
         $.ajax({
             type: 'POST',
             url: '/comment/',

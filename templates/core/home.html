@@ -2,7 +2,37 @@
 {% load staticfiles %}
 {% block content %}
     <div class="row">
-        <div class="container">
+    <div class="container">
+        <h5 class="light link">Restaurantes próximos</h5>
+        <div class="row">
+            <div class="main-carousel js-flickity" style="height: 200px;" id="carrousel" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
+
+                {% for restaurante in '123456' %}
+                    <div class="col s3">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{% static 'core/img/food-pizza-restaurant-eating.jpg' %}">
+                                <span class="card-title">Card Title</span>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">ver cardapio</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+            <h5 class="link light">
+                Por oferta
+            </h5>
+            {% for foo in 'aaaaaaaa' %}
+                <a href="#">
+                    <div class="waves-effect chip" style="">
+                        <img src="{% static 'core/img/chef.svg' %}" alt="Contact Person">
+                        R$ 10
+                    </div>
+                </a>
+            {% endfor %}
 
             {% if not user.is_authenticate and user.address.count == 0  %}
                 <div id="endereco"></div>
@@ -12,39 +42,12 @@
                 <script type="text/babel">
 
                     const Address = React.createClass({
-                        /**  getInitialState: function () {
-        return {
-            city: '',
-            state: '',
-            address: '',
-            number: '',
-            postal_code: '',
-        }
-    },
-                         **/
                         componentWillMount() {
-                            // noinspection JSAnnotator
-                            //super(props);
                             this.state = {
 
                             };
 
-                            //this.handleInputChange = this.handleInputChange.bind(this);
                         },
-                        /**
-                         componentDidMount() {
-        fetch('/address/', {
-            method: 'POST',
-            headers:{'content-type': 'application/json'},
-            body: data,
-        }).then(function (data) {
-            if (data.status === 201){
-                $('#modal1').modal('open');
-            }else{
-                console.log('pedido não realizado')
-            }
-        });
-    },**/
 
                         handleInputChange(event) {
                             const target = event.target;
@@ -120,7 +123,9 @@
                     );
                 </script>
             {% endif %}
-            <a href="{% url 'cozinhas' %}"><h5 class="light link">Mais categorias</h5></a>
+            <a href="{% url 'cozinhas' %}">
+                <h5 class="light link">Mais categorias</h5>
+            </a>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
                 {% for categoria in categorias %}
                     <a href="{% url 'category' slug=categoria.slug %}">

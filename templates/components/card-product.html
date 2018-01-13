@@ -12,8 +12,12 @@
             </div>
             <figure class="image-thumb">
                 {% if produto.owner == user %}
-                    <div class="display Aligner">
-                        <div class="edit Aligner"><i class="material-icons">edit</i></div>
+                    <div class="display center-align">
+                        <div class="Aligner" style="height: 120px;">
+                            <div class="edit Aligner"><i class="material-icons">edit</i></div>
+                        </div>
+                        <h6 class="white-text">EDITAR PRODUTO</h6>
+
                     </div>
                 {% endif %}
                 <img class="border-8px img-produto" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk|rating_product|floatformat:1 }}">

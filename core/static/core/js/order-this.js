@@ -1,37 +1,25 @@
 function order_this() {
 
-    var formdata = $(".form-pedido").serializeArray();
-    var data = {};
+    const formdata = $(".form-pedido").serializeArray();
+    let data = {};
 
     $(formdata).each(function(index, obj){
         data[obj.name] = obj.value;
     });
     data = JSON.stringify(data);
+   // data['csrftoken'] = $('input[name=csrfmiddlewaretoken]').val();
+
+    console.log(data);
 
     fetch('/pedir/', {
         method: 'POST',
-        headers:{'content-type': 'application/json'},
+        headers:{'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(), 'content-type': 'application/json'},
         body: data,
     }).then(function (data) {
         if (data.status === 201){
-            $('#modal1').modal('open');
+            $('#modal-order-this').modal('open');
         }else{
-            console.log('pedido não realizado')
+            console.log(data)
         }
     });
 }
-
- $('.modal').modal({
-      dismissible: true, // Modal can be dismissed by clicking outside of the modal
-      opacity: .5, // Opacity of modal background
-      inDuration: 300, // Transition in duration
-      outDuration: 200, // Transition out duration
-      startingTop: '4%', // Starting top style attribute
-      endingTop: '10%', // Ending top style attribute
-      ready: function(modal, trigger) { // Callback for Modal open. Modal and trigger parameters available.
-        alert("Ready");
-        console.log(modal, trigger);
-      },
-      complete: function() { alert('Closed'); } // Callback for Modal close
-    }
-  );

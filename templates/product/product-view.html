@@ -74,7 +74,7 @@
                 </ul>
             </div>
             <div class="col s12 hide-on-large-only no-padding">
-                 {% include 'components/indegredientes.html' with produto=produto.ingredients.all %}
+                {% include 'components/indegredientes.html' with produto=produto.ingredients.all %}
             </div>
             <div class="col s12 l6 m12">
                 {% include 'components/comments.html' %}
@@ -92,6 +92,15 @@
                 {% endfor %}
 
             </div>
+        </div>
+    </div>
+    <div id="modal-order-this" class="modal">
+        <div class="modal-content">
+            <h4 class="modal-title">Teste, ocorreu tudo certo!</h4>
+            <p class="modal-text">Opa.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
         </div>
     </div>
     <script src="{% static 'core/js/order-this.js' %}"></script>
