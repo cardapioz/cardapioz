@@ -1,11 +1,11 @@
 {% load cardapioz_extras %}
 {% for produto in produtos %}
     <a href="{% if produto.owner != request.user %}
-             {% url 'product-view' title=produto.title|slugify pk=produto.pk %}
+                {% url 'product-view' title=produto.title|slugify pk=produto.pk %}
              {% else %}
-             {% url 'editar-produto' pk=produto.pk %}
+                {% url 'editar-produto' pk=produto.pk %}
              {% endif %}">
-        <div class="z-depth-1 card-product" style="display: inline-block;">
+        <div class="z-depth-1 card-product" style="display: inline-block; margin-top: 10px;">
             <div title="Avaliação do produto é {{ produto.pk|rating_product|floatformat:1 }} estrelas" class="avaliacao">
                 {{ produto.pk|rating_product|floatformat:1 }}
                 <i class="material-icons right yellow-text">star</i>
@@ -17,7 +17,6 @@
                             <div class="edit Aligner"><i class="material-icons">edit</i></div>
                         </div>
                         <h6 class="white-text">EDITAR PRODUTO</h6>
-
                     </div>
                 {% endif %}
                 <img class="border-8px img-produto" src="{{ produto.photo_thumb.url }}" alt="{{ produto.title }} sua avaliação é {{ produto.pk|rating_product|floatformat:1 }}">

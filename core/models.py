@@ -33,19 +33,22 @@ class Profile(models.Model):
 
 
 class Address(models.Model):
-    user = models.ForeignKey(User, related_name='address', blank=True)
-    city = models.CharField(max_length=200)
-    state = models.CharField(max_length=20)
-    address = models.CharField(max_length=40)
-    number = models.CharField(max_length=10)
-    postal_code = models.CharField(max_length=15)
-    complement = models.CharField(max_length=30)
+    user = models.ForeignKey(User, related_name='address', blank=True, verbose_name='usuario')
+    route = models.CharField(_('rua'), max_length=200)
+    country = models.CharField(_('pais'), max_length=200)
+    administrative_area_level_1 = models.CharField(_('estado'), max_length=200)
+    administrative_area_level_2 = models.CharField(_('cidade'), max_length=200)
+    street_number = models.CharField(_('número'), max_length=30)
+    postal_code = models.CharField(_('CEP'), max_length=20)
+    complement = models.CharField(_('complemento'), max_length=20)
+    sublocality_level_1 = models.CharField(_('bairro'), max_length=200)
 
     def full_address(self):
-        return f'{self.address}, {self.number} - {self.city}'
+        return f'{self.route}, {self.street_number} - {self.sublocality_level_1} -' \
+               f' {self.administrative_area_level_2}'
 
     def __str__(self):
-        return self.full_address()
+        return self.full_address
 
 
 class Store(models.Model):

@@ -31,8 +31,8 @@ $('#post').click(function () {
                 csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
             }, success:function (data) {
 
-                $('.collection').prepend('<li class="collection-item avatar green lighten-5"><img alt="" class="circle"' +
-                    'src="'+ user_photo +'">'+
+                $('#collection').prepend('<li class="collection-item avatar green lighten-5">' +
+                    '<img alt="Imagem de usuario" class="circle" src="'+ user_photo +'">'+
                     '<span class="title">'+ user_name +'</span><p class="">'+ comment +'</p>'+
                     '<span class="secondary-content grey-text text-lighten-1">'+
                     date +'</span>'+

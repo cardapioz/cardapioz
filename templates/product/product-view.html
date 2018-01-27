@@ -5,13 +5,31 @@
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
     <div class="container">
         <div class="row">
-            <div class="col s12 m12 l6">
-                <img width="100%"  class="materialboxed border-8px" style="width: 100%; height: auto; margin: 10px 0; position: relative;" src="{{ produto.photo_medium.url }}">
-                <div class="hide-on-med-and-down no-padding">
+            <div class="col s12 m12 l6 card-painel">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="{{ produto.photo_medium.url }}" class="materialboxed urlProduto">
+                        <span class="card-title nameProduto">{{ produto.title }}</span>
+                        <a href="#" class="btn-floating halfway-fab white activator tooltipped" data-position="bottom" data-delay="50" data-tooltip="Descrição de {{ produto.title }}">
+                            <i class="material-icons red-text darken-3">info_outline</i>
+                        </a>
+                    </div>
+                    <div class="card-content">
+                        <p class="truncate activator tooltipped" data-position="bottom" data-delay="50" data-tooltip="Clique para ver mais">
+                            {{ produto.description }}
+                        </p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">{{ produto.title }}
+                            <i class="material-icons right tooltipped" data-position="bottom" data-delay="50" data-tooltip="Fechar">close</i>
+                        </span>
+                        <p>{{ produto.description }}</p>
+                    </div>
+                </div>
+                <div class="hide-on-med-and-down no-padding tooltipped" data-position="bottom" data-delay="50" data-tooltip="Ingredientes de {{ produto.title }}">
                     {% include 'components/indegredientes.html' with produto=produto.ingredients.all %}
                 </div>
             </div>
-
             <div class="col s12 m12 l6">
                 <ul class="white collection">
                     <li class="collection-item avatar">
@@ -23,11 +41,11 @@
                         <p><a href="{% url 'category' slug=produto.category_product.slug %}">{{ produto.category_title|capfirst }}</a><br><br>
                         <p class="text-success">Avaliação</p>
                         {% ratings produto %}
-                        <span class="green-text text-darken-3 secondary-content">R${{ produto.price|floatformat:2 }}</span>
+                        <span class="green-text text-darken-3 secondary-content ">R$<span class="produto-price">{{ produto.price|floatformat:2 }}</span></span>
                     </li>
                     <form class="form-pedido" action="">
-                        <input type="text" id="client" name="client" class="hide" value="{{ user.pk }}" />
-                        <input type="text" id="product" name="product" class="hide" value="{{ produto.pk }}" />
+                        <input type="text" id="client" name="client" class="hide" value="{{ user.pk }}" title="{{ user.pk }}" />
+                        <input type="text" id="product" name="product" class="hide" value="{{ produto.pk }}"  title="{{ produto.title }}"/>
                         <ul>
                             <li class="collection-item">
                                 <div class="input-field">
@@ -36,7 +54,7 @@
                                 </div>
                                 <div class="input-field">
 
-                                    <select name="deliver_on" title="Selecione um endereço">
+                                    <select name="deliver_on" title="Selecione um endereço" id="confirmacao-select">
                                         <option value="" disabled selected>Endereço de entrega</option>
                                         {% for address in user.address.all %}
                                             <option value="{{ address.pk }}">{{ address.full_address }}</option>
@@ -55,18 +73,16 @@
 
                             </li>
                             <li>
-                                <p>
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">mode_edit</i>
                                     <textarea id="icon_prefix2" name="note" class="materialize-textarea"></textarea>
                                     <label for="icon_prefix2">Observações do pedido</label>
                                 </div>
-                                </p>
                             </li>
 
                             <li class="collection-item">
-                                <p>
-                                    <a onclick="order_this()" class="btn red darken-3 waves-effect">pedir</a>
+                                <p class="btn-main center-align">
+                                    <a onclick="updateModal('confirmacao')" class="btn red darken-3 waves-effect btnpedir">pedir</a>
                                 </p>
                             </li>
                         </ul>
@@ -94,15 +110,102 @@
             </div>
         </div>
     </div>
-    <div id="modal-order-this" class="modal">
+    <!-- start modal confirmação pedido -->
+    <div id="modal-main" class="modal">
         <div class="modal-content">
-            <h4 class="modal-title">Teste, ocorreu tudo certo!</h4>
-            <p class="modal-text">Opa.</p>
+            <div class="row valign-wrapper align-center">
+                <div class="col s2">
+                    <img  src="{{ produto.photo_medium.url }}" class="circle responsive-img" >
+                </div>
+                <div class="col s10">
+                    <h5 class="teal-text primary-content">{{ produto.title }} <span class="confirmacao-total-compra teal-text secondary-content"></span></h5>
+                    <span class="blue-grey-text pedido-msg-main">
+                        <span class="pedido-msg-content-primary"></span> <span class="pedido-msg-content-second"></span>
+                        <span class="pedido-msg-content-third"></span><span class="pedido-msg-content-fourth"></span>
+                    </span>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        <div class="modal-footer modal-footer-main" >
         </div>
     </div>
+    <!-- end modal confirmacao de pedido -->
+
+    <!-- start modal wait -->
+
+    <div id="modal-wait" class="modal valign-wrapper" style=" width: 100px; height: 100px;">
+        <div class="modal-content ">
+            <div class="valign-wrapper " >
+                <div class="preloader-wrapper active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-red">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-yellow">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-green">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- end modal wait -->
+
+    <!-- start modal failure -->
+    <div id="modal-failure" class="modal">
+        <div class="modal-content">
+            <div class="row valign-wrapper align-center">
+                <div class="col s12">
+                    <h5 class="red-text text-darken-3 align-center">Falha na realização do pedido</h5>
+                    <h6 class="blue-grey-text">
+                        <span class="">Verifique sua conexão a internet e tente novamente.<br> Se o problema persistir, tente fazer seu pedido entrando em contato direto com o vendedor aqui.</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" >
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat grey-text">cancelar</a>
+            <a href="#" class="modal-action modal-close waves-effect waves-green btn-flat teal-text darken-3" onclick="updateModal('confirmacao')">tentar novamente</a>
+        </div>
+    </div>
+
+    <!-- end modal failure -->
+    <script src="{% static 'core/js/modal-controller.js' %}"></script>
     <script src="{% static 'core/js/order-this.js' %}"></script>
+
+
 {% endblock %}
 <!-- #c13e0c -->

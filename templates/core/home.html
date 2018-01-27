@@ -2,130 +2,31 @@
 {% load staticfiles %}
 {% block content %}
     <div class="row">
-    <div class="container">
-        <h5 class="light link">Restaurantes próximos</h5>
-        <div class="row">
-            <div class="main-carousel js-flickity" style="height: 200px;" id="carrousel" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
-
-                {% for restaurante in '123456' %}
-                    <div class="col s3">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="{% static 'core/img/food-pizza-restaurant-eating.jpg' %}">
-                                <span class="card-title">Card Title</span>
-                            </div>
-                            <div class="card-action">
-                                <a href="#">ver cardapio</a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-            <h5 class="link light">
-                Por oferta
-            </h5>
-            {% for foo in 'aaaaaaaa' %}
-                <a href="#">
-                    <div class="waves-effect chip" style="">
-                        <img src="{% static 'core/img/chef.svg' %}" alt="Contact Person">
-                        R$ 10
-                    </div>
-                </a>
-            {% endfor %}
+        <div class="container">
 
             {% if not user.is_authenticate and user.address.count == 0  %}
-                <div id="endereco"></div>
-                <script src="{% static 'core/react/build/react.js' %}"></script>
-                <script src="{% static 'core/react/build/react-dom.js' %}"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
-                <script type="text/babel">
-
-                    const Address = React.createClass({
-                        componentWillMount() {
-                            this.state = {
-
-                            };
-
-                        },
-
-                        handleInputChange(event) {
-                            const target = event.target;
-                            const value = target.value;
-                            const name = target.name;
-
-                            this.setState({
-                                [name]: value,
-                                user: {{ user.pk }}
-                            });
-
-                        },
-                        handleClick(){
-                            console.log(JSON.stringify(this.state));
-                            fetch('/address/', {
-                                method: 'POST',
-                                headers:{'content-type': 'application/json'},
-                                body: JSON.stringify(this.state),
-                            }).then(function (data) {
-                                console.log(data);
-                                if (data.status === 201){
-                                    alert('deu certo')
-                                }else{
-                                    alert('deu errado')
-                                }
-                            });
-                        },
-
-                        render: function () {
-                            return (
-
-                                    <div className="white z-depth-1 row">
-                                        <h5 className="light">Cadastre um endereço de entrega.</h5>
-                                        <div className="input-field col s12">
-                                            <div className="input-field col s4">
-                                                <input name="state" onChange={this.handleInputChange} type="text"
-                                                       className="validate"/>
-                                                <label htmlFor={'state'}>Estado</label>
-                                            </div>
-                                            <div className="input-field col s4">
-                                                <input onChange={this.handleInputChange} type="text" name="city" className="validate"/>
-                                                <label htmlFor={'city'}>Cidade</label>
-                                            </div>
-                                            <div className="input-field col s4">
-                                                <input onChange={this.handleInputChange} type="text" name="address" className="validate"/>
-                                                <label htmlFor={'address'}>Rua</label>
-                                            </div>
-                                            <div className="input-field col s4">
-                                                <input onChange={this.handleInputChange} type="number" name="number" className="validate"/>
-                                                <label htmlFor={"number"}>Número</label>
-                                            </div>
-
-                                            <div className="input-field col s4">
-                                                <input onChange={this.handleInputChange} type="text" name="postal_code" className="validate"/>
-                                                <label htmlFor={'cep'}>Cep</label>
-                                            </div>
-
-                                            <div className="input-field col s4">
-                                                <input onChange={this.handleInputChange} name="complement" type="text" className="validate"/>
-                                                <label htmlFor={'complement'}>Complemento</label>
-                                            </div>
-                                        </div>
-                                        <button onClick={this.handleClick} className="btn red darken-3">cadastrar</button>
-                                    </div>
-
-                            );
-                        }
-                    });
-
-                    ReactDOM.render(
-                            <Address />,
-                        document.getElementById('endereco')
-                    );
-                </script>
+                <div class=" card-panel">
+                    <h5 class="text-floating">Insira seu endereço para feed personalizado</h5>
+                    <div class="row" >
+                        <div class="input-field col s12">
+                            <input id="autocomplete" class="validate" placeholder="Rua Santana, 120 - Centro, Mogi das Cruzes - SP, Brasil" onFocus="geolocate()" type="text">
+                            <label for="autocomplete">Comece a inserir seu endereço, depois clique na caixa que aparecerá.</label>
+                            <label for="user">
+                                <input type="text" id="user" class="hide" value="{{ user.pk }}" />
+                            </label>
+                        </div>
+                        <div class="col s12 center-align">
+                            <button  class="btn-large waves-effect green " type="button" onclick="updateAddress()">
+                                salvar
+                                <i class="material-icons right">check</i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <script src="{% static 'core/js/maps.js' %}"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9FpqYNs7XDbuLu60hNFIeTbNDvlz0L0o&libraries=places&callback=initAutocomplete" async defer></script>
             {% endif %}
-            <a href="{% url 'cozinhas' %}">
-                <h5 class="light link">Mais categorias</h5>
-            </a>
+            <a href="{% url 'cozinhas' %}"><h5 class="light link">Mais categorias</h5></a>
             <div class="main-carousel js-flickity" data-flickity-options='{ "pageDots": false, "cellAlign": "left", "contain": true }'>
                 {% for categoria in categorias %}
                     <a href="{% url 'category' slug=categoria.slug %}">

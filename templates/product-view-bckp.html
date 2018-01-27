@@ -1,0 +1,108 @@
+{% extends 'core/base.html' %}{% load staticfiles %}
+{% load ratings %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <img width="100%"  class="materialboxed border-8px" style="width: 100%; height: auto; margin: 10px 0; position: relative;" src="{{ produto.photo_medium.url }}">
+                <div class="hide-on-med-and-down no-padding">
+                    {% include 'components/indegredientes.html' with produto=produto.ingredients.all %}
+                </div>
+            </div>
+
+            <div class="col s12 m12 l6">
+                <ul class="white collection">
+                    <li class="collection-item avatar">
+                        <img src="{{ produto.owner.store.photo.url }}" alt="Foto Empresa" class="circle">
+                        <span class="title">
+                            {{ produto.owner.store.name|capfirst }}
+                            <span style="top: -2px; width: 20px; height: 20px;" class="btn-floating pulse green accent-4"></span>
+                        </span>
+                        <p><a href="{% url 'category' slug=produto.category_product.slug %}">{{ produto.category_title|capfirst }}</a><br><br>
+                        <p class="text-success">Avaliação</p>
+                        {% ratings produto %}
+                        <span class="green-text text-darken-3 secondary-content">R${{ produto.price|floatformat:2 }}</span>
+                    </li>
+                    <form class="form-pedido" action="">
+                        <input type="text" id="client" name="client" class="hide" value="{{ user.pk }}" />
+                        <input type="text" id="product" name="product" class="hide" value="{{ produto.pk }}" />
+                        <ul>
+                            <li class="collection-item">
+                                <div class="input-field">
+                                    <input name="amount" placeholder="Quantidade" id="quantidade" value="1"  min="1" type="number" class="validate">
+                                    <label for="quantidade">Quantidade</label>
+                                </div>
+                                <div class="input-field">
+
+                                    <select name="deliver_on" title="Selecione um endereço">
+                                        <option value="" disabled selected>Endereço de entrega</option>
+                                        {% for address in user.address.all %}
+                                            <option value="{{ address.pk }}">{{ address.full_address }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label>Escolha um endereço de entrega</label>
+                                </div>
+
+                                <p>Forma de pagamento</p>
+                                <p>
+                                    <input value="0" name="payment" type="radio" id="payment1" />
+                                    <label for="payment1">Em dinheiro</label>
+                                    <input value="1" name="payment" type="radio" id="payment2" />
+                                    <label for="payment2">No cartão</label>
+                                </p>
+
+                            </li>
+                            <li>
+                                <p>
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea id="icon_prefix2" name="note" class="materialize-textarea"></textarea>
+                                    <label for="icon_prefix2">Observações do pedido</label>
+                                </div>
+                                </p>
+                            </li>
+
+                            <li class="collection-item">
+                                <p>
+                                    <a onclick="order_this()" class="btn red darken-3 waves-effect">pedir</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </form>
+                </ul>
+            </div>
+            <div class="col s12 hide-on-large-only no-padding">
+                {% include 'components/indegredientes.html' with produto=produto.ingredients.all %}
+            </div>
+            <div class="col s12 l6 m12">
+                {% include 'components/comments.html' %}
+            </div>
+            <div class="col s12 l6 m12" style="text-align: center;">
+                {% if relateds %}
+                    <a  class="light link" href="{% url 'category' slug=produto.category_product.slug  %}">
+                        <h5 class="light link">Ver mais relacionados</h5>
+                    </a>
+                {% endif %}
+                {% for related in relateds %}
+                    {% include 'components/card-product.html' with produtos=relateds %}
+                {% empty %}
+                    {% include 'components/not-found-cheff.html' with title='Não há produtos relacionados' text='Crie um alerta e seja avisado quando houver algum prato preparado.' %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <div id="modal-order-this" class="modal">
+        <div class="modal-content">
+            <h4 class="modal-title">Teste, ocorreu tudo certo!</h4>
+            <p class="modal-text">Opa.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+        </div>
+    </div>
+    <script src="{% static 'core/js/order-this-bckp.js' %}"></script>
+{% endblock %}
+<!-- #c13e0c -->

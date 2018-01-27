@@ -1,25 +1,46 @@
 function order_this() {
+    $('#modal-wait').modal('open');
 
-    const formdata = $(".form-pedido").serializeArray();
-    let data = {};
+    $('.modal').modal({
+         dismissible: false, // Modal can be dismissed by clicking outside of the modal
+         opacity: .5, // Opacity of modal background
+         inDuration: 300, // Transition in duration
+         outDuration: 200, // Transition out duration
+         startingTop: '4%', // Starting top style attribute
+         endingTop: '20%', // Ending top style attribute
+       }
+    );
+
+    var formdata = $(".form-pedido").serializeArray();
+    var data = {};
 
     $(formdata).each(function(index, obj){
         data[obj.name] = obj.value;
     });
     data = JSON.stringify(data);
-   // data['csrftoken'] = $('input[name=csrfmiddlewaretoken]').val();
-
-    console.log(data);
 
     fetch('/pedir/', {
         method: 'POST',
-        headers:{'X-CSRFToken': $('input[name=csrfmiddlewaretoken]').val(), 'content-type': 'application/json'},
+        headers:{'content-type': 'application/json'},
         body: data,
     }).then(function (data) {
         if (data.status === 201){
-            $('#modal-order-this').modal('open');
+            console.log(data.status)
+            $('#modal-wait').modal('close');
+             document.querySelector('.btn-main').innerHTML = `
+                 <a onclick="" class="btn green darken-3 waves-effect btn-acompanhar">acompanhar pedido</a>
+            `;
+
+            return updateModal('pedido-ok');
+
+
         }else{
-            console.log(data)
+            $('#modal-wait').modal('close');
+            $('#modal-failure').modal('open');
+
+             document.querySelector('.btn-main').innerHTML = `
+                 <a onclick="updateModal('confirmacao')" class="btn red darken-3 waves-effect btn-retry">tentar novamente</a>
+            `;
         }
     });
 }

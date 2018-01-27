@@ -27,7 +27,8 @@ class AddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = Address
         depth = 0
-        fields = ['user', 'city', 'state', 'address', 'number', 'postal_code']
+        fields = ['user', 'route', 'country', 'administrative_area_level_1', 'administrative_area_level_2', 'street_number',
+                  'postal_code', 'complement', 'sublocality_level_1']
 
 
 class OrderSerializer(serializers.ModelSerializer):

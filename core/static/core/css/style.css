@@ -197,3 +197,8 @@ nav .button-express {
     border: 2px solid white;
     text-align: center;
 }
+
+.thumb-avatar{
+    width: 80px !important;
+    height: 80px !important;
+}
